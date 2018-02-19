@@ -35,7 +35,7 @@ public class Card {
         return state;
     }
 
-    public void setState(boolean state) {
-        this.state = state;
+    public void setState(){
+        state=!state;
     }
 }
