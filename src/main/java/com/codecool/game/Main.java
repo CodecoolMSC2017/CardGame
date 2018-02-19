@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         Game newGame = new Game();
-        Scanner sc = new Scanner(System.in)
+        Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.flush();
             int i = 1;
@@ -21,7 +21,7 @@ public class Main {
             String empty = sc.nextLine();
 
             if (select == 1) {
-                newGame.startGame();
+                //newGame.startGame();
             }else if (select == 2) {
                 break;
             }
