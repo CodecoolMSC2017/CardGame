@@ -39,7 +39,7 @@ public class CardReader {
 
                     Card newCard = new Card(name, military, intrique, fame);
 
-                    player.deck.add(newCard);
+                    player.getDeck().setCardList(newCard);
                 }
             }
         } catch (Exception e) {
