@@ -15,16 +15,13 @@ public class Hand {
 
     public void draw(){
         cardsInHand.add(deck.getRandomCards());
-
     }
 
     public Card play(){
         return random.getRandomCard(cardsInHand);
     }
 
-    public void discard(Card dicardCard){
-        cardsInHand.remove(dicardCard);
+    public void discard(Card discardCard){
+        cardsInHand.remove(discardCard);
     }
-
-
 }

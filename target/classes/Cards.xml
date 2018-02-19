@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Cards>
+    <Card>
+        <name>Henrik VIII</name>
+        <military>5</military>
+        <intrique>5</intrique>
+        <fame>5</fame>
+    </Card>
+</Cards>
