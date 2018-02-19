@@ -34,4 +34,8 @@ public class Card {
     public boolean isState() {
         return state;
     }
+
+    public void setState(){
+        state=!state;
+    }
 }
