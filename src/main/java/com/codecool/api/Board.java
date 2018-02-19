@@ -12,6 +12,16 @@ public class Board {
        return random.getRandomCard(onBoard);
     }
 
+    public void destroyCard(){
+        Card tmpCard = getRandomCard();
+        onBoard.remove(tmpCard);
+        graveyard.add(tmpCard);
+    }
+
+    public void changeState(Card card){
+        card.setState();
+    }
+
 
 
 
