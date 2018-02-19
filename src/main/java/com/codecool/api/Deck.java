@@ -1,9 +1,10 @@
 package com.codecool.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Deck {
-    private List<Card> cardList;
+    private List<Card> cardList = new ArrayList<>();
     private GetRandom random;
 
 
@@ -17,5 +18,9 @@ public class Deck {
 
     public void setCardList(Card card) {
         cardList.add(card);
+    }
+
+    public List<Card> getCardList(){
+        return cardList;
     }
 }
