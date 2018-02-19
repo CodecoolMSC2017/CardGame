@@ -12,6 +12,10 @@ public class Deck {
     }
 
     public Card getRandomCards(){
-        return random.getRandomCard(getRandomCards());
+        return random.getRandomCard(cardList);
+    }
+
+    public void setCardList(Card card) {
+        cardList.add(card);
     }
 }
