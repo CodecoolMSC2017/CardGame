@@ -1,5 +1,6 @@
 package com.codecool.game;
 
+import com.codecool.api.Card;
 import com.codecool.api.CardReader;
 import com.codecool.api.Player;
 
@@ -22,10 +23,12 @@ public class Game {
             player2.setActive();
         }
 
-        player1.getHand().drawStartingHand();
-        player2.getHand().drawStartingHand();
+        player1.drawStartingHand();
+        player2.drawStartingHand();
 
         System.out.println(player1.getDeck().getCardList());
-        System.out.println(player2.getHand().getCardsInHand());
+        for(Card c : player2.getHand().getCardsInHand()){
+            System.out.println(c.getName());
+        }
     }
 }
