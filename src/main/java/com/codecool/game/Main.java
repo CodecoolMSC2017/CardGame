@@ -1,12 +1,30 @@
 package com.codecool.game;
 
+import com.codecool.client.*;
+import com.codecool.host.*;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        Game newGame = new Game();
         Scanner sc = new Scanner(System.in);
+        // for testing
+        System.out.println("Start local server? (y)es");
+        char serverStart = sc.nextLine().charAt(0);
+        if (serverStart == 'y') {
+            Host server = new Host();
+
+        }
+        else {
+            Client client = new Client();
+            client.run();
+        }
+
+        // end of test section
+
+
+        Game newGame = new Game();
+
         while (true) {
             System.out.flush();
             int i = 1;

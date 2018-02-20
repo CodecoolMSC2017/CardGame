@@ -7,45 +7,87 @@
         <fame>5</fame>
     </Card>
     <Card>
-        <name>peon</name>
-        <military>1</military>
+        <name>Edward The Black Prince</name>
+        <military>6</military>
         <intrique>1</intrique>
-        <fame>1</fame>
+        <fame>3</fame>
     </Card>
     <Card>
-        <name>peon</name>
+        <name>Brunhilde</name>
         <military>1</military>
-        <intrique>1</intrique>
-        <fame>1</fame>
+        <intrique>7</intrique>
+        <fame>7</fame>
     </Card>
     <Card>
-        <name>peon</name>
-        <military>1</military>
-        <intrique>1</intrique>
-        <fame>1</fame>
+        <name>Richard the Lionheart</name>
+        <military>4</military>
+        <intrique>3</intrique>
+        <fame>7</fame>
     </Card>
     <Card>
-        <name>peon</name>
-        <military>1</military>
-        <intrique>1</intrique>
-        <fame>1</fame>
+        <name>The Black Knight</name>
+        <military>4</military>
+        <intrique>6</intrique>
+        <fame>6</fame>
     </Card>
     <Card>
-        <name>peon</name>
-        <military>1</military>
-        <intrique>1</intrique>
-        <fame>1</fame>
+        <name>Isabella of France</name>
+        <military>2</military>
+        <intrique>8</intrique>
+        <fame>4</fame>
     </Card>
     <Card>
-        <name>peon</name>
-        <military>1</military>
-        <intrique>1</intrique>
-        <fame>1</fame>
+        <name>Saladin</name>
+        <military>5</military>
+        <intrique>4</intrique>
+        <fame>6</fame>
     </Card>
     <Card>
-        <name>peon</name>
-        <military>1</military>
+        <name>Dante</name>
+        <military>2</military>
+        <intrique>9</intrique>
+        <fame>3</fame>
+    </Card>
+    <Card>
+        <name>King Arthur</name>
+        <military>8</military>
+        <intrique>2</intrique>
+        <fame>5</fame>
+    </Card>
+    <Card>
+        <name>Joan of Arc</name>
+        <military>7</military>
         <intrique>1</intrique>
-        <fame>1</fame>
+        <fame>7</fame>
+    </Card>
+    <Card>
+        <name>Vlad the Impaler</name>
+        <military>3</military>
+        <intrique>3</intrique>
+        <fame>9</fame>
+    </Card>
+    <Card>
+        <name>William Tell</name>
+        <military>1</military>
+        <intrique>8</intrique>
+        <fame>6</fame>
+    </Card>
+    <Card>
+        <name>Marco Polo</name>
+        <military>3</military>
+        <intrique>7</intrique>
+        <fame>5</fame>
+    </Card>
+    <Card>
+        <name>Matyas Hunyadi</name>
+        <military>7</military>
+        <intrique>3</intrique>
+        <fame>5</fame>
+    </Card>
+    <Card>
+        <name>Genghis Khan</name>
+        <military>6</military>
+        <intrique>3</intrique>
+        <fame>5</fame>
     </Card>
 </Cards>
