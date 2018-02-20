@@ -8,8 +8,6 @@ public class Board {
     private List<Card> graveyard = new ArrayList<>();
     private GetRandom random = new GetRandom();
 
-
-
     public Card getRandomCard(){
        return random.getRandomCard(onBoard);
     }
@@ -24,4 +22,11 @@ public class Board {
         card.setState();
     }
 
+    public void playCard(Card card) {
+        onBoard.add(card);
+    }
+
+    public List<Card> getOnBoard() {
+        return onBoard;
+    }
 }

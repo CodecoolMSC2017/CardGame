@@ -48,15 +48,26 @@ public class Player {
         active = !active;
     }
 
-    public void draw(){
-        Card tmpCard = deck.getRandomCards();
-        hand.getCardsInHand().add(tmpCard);
-        deck.getCardList().remove(tmpCard);
+    public boolean draw(){
+        if (deck.getCardList().size()==0) {
+            return false;
+        }else {
+            Card tmpCard = deck.getRandomCards();
+            hand.getCardsInHand().add(tmpCard);
+            deck.getCardList().remove(tmpCard);
+            return true;
+        }
     }
 
     public void drawStartingHand(){
         for (int i = 0; i < 5 ; i++) {
             draw();
         }
+    }
+
+    public void playFromHand(int index) {
+        Card toPlay = getHand().play(index);
+        getHand().getCardsInHand().remove(toPlay);
+        getBoard().playCard(toPlay);
     }
 }
