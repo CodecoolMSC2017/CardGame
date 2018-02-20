@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         // for testing
-        System.out.println("Start local server? (y)es"); // now in server mode the cliens cannot be run
+        System.out.println("Start local server? (y)es // (if yes only the server will run right now, the game not"); // now in server mode the cliens cannot be run
         char serverStart = sc.nextLine().charAt(0);
         if (serverStart == 'y'){
             Host server = new Host();
