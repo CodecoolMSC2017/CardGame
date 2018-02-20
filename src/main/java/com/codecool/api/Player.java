@@ -2,9 +2,9 @@ package com.codecool.api;
 
 public class Player {
     String name;
-    Deck deck = new Deck(this);
-    Hand hand = new Hand(this);
-    Board board  = new Board(this);
+    Deck deck = new Deck();
+    Hand hand = new Hand();
+    Board board  = new Board();
     boolean active = false;
 
 
@@ -46,5 +46,17 @@ public class Player {
 
     public void setActive() {
         active = !active;
+    }
+
+    public void draw(){
+        Card tmpCard = deck.getRandomCards();
+        hand.getCardsInHand().add(tmpCard);
+        deck.getCardList().remove(tmpCard);
+    }
+
+    public void drawStartingHand(){
+        for (int i = 0; i < 5 ; i++) {
+            draw();
+        }
     }
 }
