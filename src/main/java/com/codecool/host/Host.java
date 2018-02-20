@@ -16,6 +16,7 @@ public class Host{
     public Host() {
         try {
             servAddress = InetAddress.getLocalHost();
+            this.start();
         } catch (UnknownHostException e) {
             System.err.println("The host is unknow.");
         }
@@ -23,29 +24,40 @@ public class Host{
 
     public InetAddress getServerAddress() {
         return servAddress;
+
     }
 
-    public void setUp() {
-        try {
-            String server_IP = servAddress.getHostAddress();
-            System.out.println("Server IP address : " + server_IP);
+    private void start() {
+        Runnable serverTask = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String server_IP = servAddress.getHostAddress();
+                    System.out.println("Server IP address : " + server_IP);
 
-            ServerSocket server = new ServerSocket(port);
-            Socket sSocket = server.accept();
-            PrintWriter pwOut = new PrintWriter(sSocket.getOutputStream(), true);
-            InputStreamReader inp = new InputStreamReader(sSocket.getInputStream());
-            pwOut.println("ok");
-            BufferedReader bf = new BufferedReader(inp);
+                    ServerSocket server = new ServerSocket(port);
+                    System.out.println("waiting for client to connect");
+                    while (true) {  // infinte for testing
+                        Socket sSocket = server.accept();
+                        PrintWriter pwOut = new PrintWriter(sSocket.getOutputStream(), true);
+                        InputStreamReader inp = new InputStreamReader(sSocket.getInputStream());
+                        pwOut.println("ok");
+                        BufferedReader bf = new BufferedReader(inp);
+                        sSocket.close();
+                    }
 
+                    //server.close();
 
-            sSocket.close();
-            server.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NullPointerException n){
-            System.err.println("No server ip established");
-        }
+                } catch (IOException e) {
+                    System.err.println("Error during processing client requests");
+                    ;
+                } catch (NullPointerException n) {
+                    System.err.println("No server ip established");
+                }
+            }
+        };
+        Thread serverThread = new Thread(serverTask);
+        serverThread.start();
 
     }
 }

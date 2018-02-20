@@ -11,11 +11,9 @@ public class Main {
         // for testing
         System.out.println("Start local server? (y)es // (if yes only the server will run right now, the game not"); // now in server mode the cliens cannot be run
         char serverStart = sc.nextLine().charAt(0);
-        if (serverStart == 'y'){
+        if (serverStart == 'y') {
             Host server = new Host();
-            while(true) { //set up for inifinite loop for testing
-                server.setUp();
-            }
+
         }
         else {
             Client client = new Client();
