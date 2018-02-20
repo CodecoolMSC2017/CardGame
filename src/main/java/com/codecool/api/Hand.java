@@ -5,16 +5,16 @@ import java.util.List;
 
 public class Hand {
     private List<Card> cardsInHand = new ArrayList<>();
-    private Deck deck;
-    private GetRandom random;
+    private GetRandom random = new GetRandom();
+    private Player player;
 
-    public Hand(Deck deck, GetRandom random) {
-        this.deck = deck;
-        this.random = random;
+    public Hand(Player player) {
+        this.player = player;
     }
 
     public void draw(){
-        cardsInHand.add(deck.getRandomCards());
+        cardsInHand.add(player.deck.getRandomCards());
+
     }
 
     public List<Card> getCardsInHand(){
@@ -27,5 +27,11 @@ public class Hand {
 
     public void discard(Card discardCard){
         cardsInHand.remove(discardCard);
+    }
+
+    public void drawStartingHand() {
+        for (int i=0;i<5;i++) {
+            draw();
+        }
     }
 }

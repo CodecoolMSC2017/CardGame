@@ -2,15 +2,13 @@ package com.codecool.api;
 
 public class Player {
     String name;
-    Deck deck;
-    Hand hand;
-    Board board;
+    Deck deck = new Deck(this);
+    Hand hand = new Hand(this);
+    Board board  = new Board(this);
+    boolean active = false;
 
 
-    public Player(Deck deck, Hand hand, Board board,String name) {
-        this.deck = deck;
-        this.hand = hand;
-        this.board = board;
+    public Player(String name) {
         this.name=name;
     }
 
@@ -40,5 +38,13 @@ public class Player {
 
     public void setBoard(Board board) {
         this.board = board;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive() {
+        active = !active;
     }
 }

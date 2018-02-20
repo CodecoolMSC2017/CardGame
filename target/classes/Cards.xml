@@ -6,4 +6,46 @@
         <intrique>5</intrique>
         <fame>5</fame>
     </Card>
+    <Card>
+        <name>peon</name>
+        <military>1</military>
+        <intrique>1</intrique>
+        <fame>1</fame>
+    </Card>
+    <Card>
+        <name>peon</name>
+        <military>1</military>
+        <intrique>1</intrique>
+        <fame>1</fame>
+    </Card>
+    <Card>
+        <name>peon</name>
+        <military>1</military>
+        <intrique>1</intrique>
+        <fame>1</fame>
+    </Card>
+    <Card>
+        <name>peon</name>
+        <military>1</military>
+        <intrique>1</intrique>
+        <fame>1</fame>
+    </Card>
+    <Card>
+        <name>peon</name>
+        <military>1</military>
+        <intrique>1</intrique>
+        <fame>1</fame>
+    </Card>
+    <Card>
+        <name>peon</name>
+        <military>1</military>
+        <intrique>1</intrique>
+        <fame>1</fame>
+    </Card>
+    <Card>
+        <name>peon</name>
+        <military>1</military>
+        <intrique>1</intrique>
+        <fame>1</fame>
+    </Card>
 </Cards>

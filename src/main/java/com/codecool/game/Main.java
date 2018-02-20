@@ -21,7 +21,11 @@ public class Main {
             String empty = sc.nextLine();
 
             if (select == 1) {
-                //newGame.startGame();
+                System.out.println("Please provide name of the first player:");
+                String name1 = sc.nextLine();
+                System.out.println("Please provide name of the second player:");
+                String name2 = sc.nextLine();
+                newGame.startGame(name1, name2);
             }else if (select == 2) {
                 break;
             }

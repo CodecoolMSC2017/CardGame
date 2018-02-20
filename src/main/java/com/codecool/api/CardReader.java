@@ -13,14 +13,12 @@ import java.io.File;
 
 public class CardReader {
 
-    Document document;
-
     public void loadDeck(Player player) {
         try {
             File xmlFile = new File("src/main/resources/Cards.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            document = dBuilder.parse(xmlFile);
+            Document document = dBuilder.parse(xmlFile);
 
             document.getDocumentElement().normalize();
 
