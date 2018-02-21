@@ -19,6 +19,10 @@ public class Card implements Serializable{
         this.link = link;
     }
 
+    public String getLink() {
+        return link;
+    }
+
     public String getName() {
         return name;
     }

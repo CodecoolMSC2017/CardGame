@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,9 +11,9 @@
 
 <AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.gui.Controller">
    <children>
-      <ImageView fx:id="background" fitHeight="768.0" fitWidth="1366.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="background" fitHeight="768.0" fitWidth="1366.0" pickOnBounds="true">
          <image>
-            <Image url="@startingScreen.jpg" />
+            <Image url="@../../../../../src/main/resources/images/others/background.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="534.0" fitWidth="944.0" layoutX="216.0" layoutY="115.0" opacity="0.53" pickOnBounds="true" preserveRatio="true">
@@ -32,6 +33,9 @@
          <font>
             <Font name="BlackChancery" size="50.0" />
          </font>
+         <effect>
+            <DropShadow spread="0.52" />
+         </effect>
       </Label>
       <CheckBox fx:id="fullscreenCheck" layoutX="680.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setFullscreen" prefHeight="49.0" prefWidth="46.0">
          <font>
@@ -43,5 +47,14 @@
             <Image url="@backButton.jpg" />
          </image>
       </ImageView>
+      <Label layoutX="444.0" layoutY="227.0" text="Volume" textFill="WHITE">
+         <font>
+            <Font name="BlackChancery" size="50.0" />
+         </font>
+         <effect>
+            <DropShadow spread="0.58" />
+         </effect>
+      </Label>
+      <Slider layoutX="633.0" layoutY="265.0" prefHeight="14.0" prefWidth="378.0" />
    </children>
 </AnchorPane>
