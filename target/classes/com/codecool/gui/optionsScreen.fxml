@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -55,11 +55,6 @@
             <DropShadow spread="0.58" />
          </effect>
       </Label>
-      <TextField fx:id="volumeField" layoutX="634.0" layoutY="245.0" prefHeight="42.0" prefWidth="46.0" />
-      <ImageView fx:id="setVolumeButton" fitHeight="49.0" fitWidth="123.0" layoutX="704.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../src/main/resources/images/others/setButton.jpg" />
-         </image>
-      </ImageView>
+      <Slider layoutX="633.0" layoutY="265.0" prefHeight="14.0" prefWidth="378.0" />
    </children>
 </AnchorPane>
