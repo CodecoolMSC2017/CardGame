@@ -16,6 +16,11 @@ public class Card implements Serializable{
         this.intrique = intrique;
         this.fame = fame;
         this.state = false;
+        this.link=link;
+    }
+
+    public String getLink() {
+        return link;
     }
 
     public String getName() {

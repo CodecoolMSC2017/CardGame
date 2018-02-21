@@ -5,6 +5,9 @@ import com.codecool.api.Player;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +25,8 @@ import javafx.util.Duration;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.beans.EventHandler;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -29,9 +34,12 @@ import java.util.ArrayList;
 public class Controller extends Application {
 
     private static Parent root;
+    private static Parent phaseRoot;
+    private static Stage phaseScreen;
     private static Player playerOne;
     private static Player playerTwo;
     private static Stage stage;
+    private static double volume=5f;
     @FXML TextField playerOneName;
     @FXML TextField playerTwoName;
     @FXML Label startButton;
@@ -47,20 +55,42 @@ public class Controller extends Application {
     @FXML ImageView onBoardSix;
     @FXML ImageView onBoardSeven;
     @FXML ImageView background;
-    @FXML ImageView handOne;
-    @FXML ImageView handTwo;
-    @FXML ImageView handThree;
-    @FXML ImageView handFour;
-    @FXML ImageView handFive;
+    @FXML ImageView handOne = new ImageView();
+    @FXML ImageView handTwo = new ImageView();
+    @FXML ImageView handThree = new ImageView();
+    @FXML ImageView handFour = new ImageView();
+    @FXML ImageView handFive = new ImageView();
+    @FXML Label playerOneDeckSize;
+    @FXML TextField volumeField;
+    private static AudioClip audio;
+
+    private static int onBoardCounter;
+
     private static ImageView tmpImg;
     private static ImageView tmpImgHand;
     private static double screenWidth;
     private static double screenHeight;
 
 
-    public static void main() {
+    public void main() {
+
+        Controller.audio = new AudioClip(getClass().getResource("backgroundMusic.wav").toExternalForm());
+        Controller.audio.setVolume(Controller.volume);
+        Controller.audio.setCycleCount(100);
+        Controller.audio.play();
         launch();
     }
+
+    public void phaseChoose()throws Exception{
+        phaseScreen=new Stage();
+        phaseRoot = FXMLLoader.load(getClass().getResource("phaseChooseScreen.fxml"));
+        phaseScreen.setScene(new Scene(phaseRoot,250,400));
+        phaseScreen.show();
+    }
+
+
+
+
 
     public void start(Stage primaryStage) throws Exception{
         Controller.stage=primaryStage;
@@ -68,11 +98,18 @@ public class Controller extends Application {
         Controller.screenWidth = screenSize.getWidth();
         Controller.screenHeight = screenSize.getHeight();
 
+
+
+
         Controller.root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
         Controller.stage.setTitle("Medieval Warfare");
         Controller.stage.setScene(new Scene(root, 1366, 768));
         Controller.stage.setResizable(false);
         Controller.stage.show();
+
+
+
+
     }
 
     public void startGame() throws Exception{
@@ -81,9 +118,7 @@ public class Controller extends Application {
         Thread.sleep(3000);
         Controller.root = FXMLLoader.load(getClass().getResource("playerNameScreen.fxml"));
         Controller.stage.setScene(new Scene(root,1366,768));
-
-
-    }
+        }
 
     public void confirmButton()throws Exception{
         Controller.playerOne = new Player(playerOneName.getText());
@@ -93,15 +128,25 @@ public class Controller extends Application {
         cr.loadDeck(Controller.playerOne);
         System.out.println(Controller.playerOne.getDeck().getCardList().size());
         playerOne.drawStartingHand();
-        handOne.setImage(new Image(playerOne.getHand().getCardsInHand().get(0).getUrl()));
-        handTwo.setImage(new Image(playerOne.getHand().getCardsInHand().get(1).getUrl()));
-        handThree.setImage(new Image(playerOne.getHand().getCardsInHand().get(2).getUrl()));
-        handFour.setImage(new Image(playerOne.getHand().getCardsInHand().get(3).getUrl()));
-        handFive.setImage(new Image(playerOne.getHand().getCardsInHand().get(4).getUrl()));
+        System.out.println(playerOne.getHand().getCardsInHand().size());
+        System.out.println(playerOne.getHand().getCardsInHand().get(0).getLink());
         Controller.stage.setScene(new Scene(root,1366,768));
 
 
+
+
+
     }
+
+    public void drawFirstCards() {
+        handOne.setImage(new Image(playerOne.getHand().getCardsInHand().get(0).getLink()));
+        handTwo.setImage(new Image(playerOne.getHand().getCardsInHand().get(1).getLink()));
+        handThree.setImage(new Image(playerOne.getHand().getCardsInHand().get(2).getLink()));
+        handFour.setImage(new Image(playerOne.getHand().getCardsInHand().get(3).getLink()));
+        handFive.setImage(new Image(playerOne.getHand().getCardsInHand().get(4).getLink()));
+        playerOneDeckSize.setText(Integer.toString(playerOne.getDeck().getCardList().size()));
+    }
+
 
     public void startButtonHover(){
         AudioClip audio = new AudioClip(this.getClass().getResource("hoverSound.wav").toExternalForm());
@@ -252,6 +297,208 @@ public class Controller extends Application {
         st.play();
 
     }
+
+    public void handOneClicked(){
+        playerOne.playFromHand(0);
+        switch(onBoardCounter){
+            case 0:
+
+                onBoardOne.setImage(handOne.getImage());
+                onBoardCounter++;
+                break;
+            case 1:
+                onBoardTwo.setImage(handOne.getImage());
+                onBoardCounter++;
+                break;
+            case 2:
+                onBoardThree.setImage(handOne.getImage());
+                onBoardCounter++;
+                break;
+            case 3:
+                onBoardFour.setImage(handOne.getImage());
+                onBoardCounter++;
+                break;
+            case 4:
+                onBoardFive.setImage(handOne.getImage());
+                onBoardCounter++;
+                break;
+            case 5:
+                onBoardSix.setImage(handOne.getImage());
+                onBoardCounter++;
+                break;
+            case 6:
+                onBoardSeven.setImage(handOne.getImage());
+                onBoardCounter++;
+                break;
+        }
+
+
+        handOne.setImage(handTwo.getImage());
+        handTwo.setImage(handThree.getImage());
+        handThree.setImage(handFour.getImage());
+        handFour.setImage(handFive.getImage());
+        handFive.setImage(null);
+    }
+
+    public void handTwoClicked(){
+        playerOne.playFromHand(1);
+        switch(onBoardCounter){
+            case 0:
+                onBoardOne.setImage(handTwo.getImage());
+                onBoardCounter++;
+                break;
+            case 1:
+                onBoardTwo.setImage(handTwo.getImage());
+                onBoardCounter++;
+                break;
+            case 2:
+                onBoardThree.setImage(handTwo.getImage());
+                onBoardCounter++;
+                break;
+            case 3:
+                onBoardFour.setImage(handTwo.getImage());
+                onBoardCounter++;
+                break;
+            case 4:
+                onBoardFive.setImage(handTwo.getImage());
+                onBoardCounter++;
+                break;
+            case 5:
+                onBoardSix.setImage(handTwo.getImage());
+                onBoardCounter++;
+                break;
+            case 6:
+                onBoardSeven.setImage(handTwo.getImage());
+                onBoardCounter++;
+                break;
+        }
+
+
+
+        handTwo.setImage(handThree.getImage());
+        handThree.setImage(handFour.getImage());
+        handFour.setImage(handFive.getImage());
+        handFive.setImage(null);
+    }
+
+    public void handThreeClicked(){
+        playerOne.playFromHand(2);
+        switch(onBoardCounter){
+            case 0:
+                onBoardOne.setImage(handThree.getImage());
+                onBoardCounter++;
+                break;
+            case 1:
+                onBoardTwo.setImage(handThree.getImage());
+                onBoardCounter++;
+                break;
+            case 2:
+                onBoardThree.setImage(handThree.getImage());
+                onBoardCounter++;
+                break;
+            case 3:
+                onBoardFour.setImage(handThree.getImage());
+                onBoardCounter++;
+                break;
+            case 4:
+                onBoardFive.setImage(handThree.getImage());
+                onBoardCounter++;
+                break;
+            case 5:
+                onBoardSix.setImage(handThree.getImage());
+                onBoardCounter++;
+                break;
+            case 6:
+                onBoardSeven.setImage(handThree.getImage());
+                onBoardCounter++;
+                break;
+        }
+
+
+
+
+        handThree.setImage(handFour.getImage());
+        handFour.setImage(handFive.getImage());
+        handFive.setImage(null);
+    }
+
+    public void handFourClicked(){
+        playerOne.playFromHand(3);
+        switch(onBoardCounter){
+            case 0:
+                onBoardOne.setImage(handFour.getImage());
+                onBoardCounter++;
+                break;
+            case 1:
+                onBoardTwo.setImage(handFour.getImage());
+                onBoardCounter++;
+                break;
+            case 2:
+                onBoardThree.setImage(handFour.getImage());
+                onBoardCounter++;
+                break;
+            case 3:
+                onBoardFour.setImage(handFour.getImage());
+                onBoardCounter++;
+                break;
+            case 4:
+                onBoardFive.setImage(handFour.getImage());
+                onBoardCounter++;
+                break;
+            case 5:
+                onBoardSix.setImage(handFour.getImage());
+                onBoardCounter++;
+                break;
+            case 6:
+                onBoardSeven.setImage(handFour.getImage());
+                onBoardCounter++;
+                break;
+        }
+
+
+
+
+
+        handFour.setImage(handFive.getImage());
+        handFive.setImage(null);
+    }
+
+    public void handFiveClicked(){
+        playerOne.playFromHand(4);
+        switch(onBoardCounter){
+            case 0:
+                onBoardOne.setImage(handFive.getImage());
+                onBoardCounter++;
+                break;
+            case 1:
+                onBoardTwo.setImage(handFive.getImage());
+                onBoardCounter++;
+                break;
+            case 2:
+                onBoardThree.setImage(handFive.getImage());
+                onBoardCounter++;
+                break;
+            case 3:
+                onBoardFour.setImage(handFive.getImage());
+                onBoardCounter++;
+                break;
+            case 4:
+                onBoardFive.setImage(handFive.getImage());
+                onBoardCounter++;
+                break;
+            case 5:
+                onBoardSix.setImage(handFive.getImage());
+                onBoardCounter++;
+                break;
+            case 6:
+                onBoardSeven.setImage(handFive.getImage());
+                onBoardCounter++;
+                break;
+        }
+
+        handFive.setImage(null);
+    }
+
 
 
 

@@ -41,7 +41,10 @@
             <Image url="@testCard.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="handOne" fitHeight="173.0" fitWidth="132.0" layoutX="339.0" layoutY="646.0" onMouseEntered="#handHover" onMouseExited="#handHoverOff" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="handOne" fitHeight="173.0" fitWidth="132.0" layoutX="339.0" layoutY="646.0" onMouseEntered="#handHover" onMouseExited="#handHoverOff" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url=" />
+         </image></ImageView>
       <ImageView fx:id="handTwo" fitHeight="173.0" fitWidth="132.0" layoutX="480.0" layoutY="646.0" onMouseEntered="#handHover" onMouseExited="#handHoverOff" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="handThree" fitHeight="173.0" fitWidth="132.0" layoutX="619.0" layoutY="646.0" onMouseEntered="#handHover" onMouseExited="#handHoverOff" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="handFour" fitHeight="173.0" fitWidth="132.0" layoutX="759.0" layoutY="646.0" onMouseEntered="#handHover" onMouseExited="#handHoverOff" pickOnBounds="true" preserveRatio="true" />

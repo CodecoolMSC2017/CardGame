@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.gui.Controller">
    <children>
@@ -12,58 +14,47 @@
          </image>
       </ImageView>
       <ImageView fx:id="onBoardOne" fitHeight="173.0" fitWidth="132.0" layoutX="133.0" layoutY="406.0" onMouseEntered="#onBoardHover" onMouseExited="#onBoardHoverOff" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@testCard.png" />
-         </image></ImageView>
+        </ImageView>
       <ImageView fx:id="onBoardTwo" fitHeight="173.0" fitWidth="132.0" layoutX="293.0" layoutY="406.0" onMouseEntered="#onBoardHover" onMouseExited="#onBoardHoverOff" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@testCard.png" />
-         </image></ImageView>
+         </ImageView>
       <ImageView fx:id="onBoardThree" fitHeight="173.0" fitWidth="132.0" layoutX="459.0" layoutY="406.0" onMouseEntered="#onBoardHover" onMouseExited="#onBoardHoverOff" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@testCard.png" />
-         </image></ImageView>
+         </ImageView>
       <ImageView fx:id="onBoardFour" fitHeight="173.0" fitWidth="132.0" layoutX="625.0" layoutY="406.0" onMouseEntered="#onBoardHover" onMouseExited="#onBoardHoverOff" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@testCard.png" />
-         </image></ImageView>
+         </ImageView>
       <ImageView fx:id="onBoardFive" fitHeight="173.0" fitWidth="132.0" layoutX="789.0" layoutY="406.0" onMouseEntered="#onBoardHover" onMouseExited="#onBoardHoverOff" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@testCard.png" />
-         </image></ImageView>
+        </ImageView>
       <ImageView fx:id="onBoardSix" fitHeight="173.0" fitWidth="132.0" layoutX="948.0" layoutY="406.0" onMouseEntered="#onBoardHover" onMouseExited="#onBoardHoverOff" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@testCard.png" />
-         </image>
+
       </ImageView>
       <ImageView fx:id="onBoardSeven" fitHeight="173.0" fitWidth="132.0" layoutX="1110.0" layoutY="406.0" onMouseEntered="#onBoardHover" onMouseExited="#onBoardHoverOff" pickOnBounds="true" preserveRatio="true">
+
+      </ImageView>
+      <ImageView fx:id="handOne" fitHeight="173.0" fitWidth="132.0" layoutX="339.0" layoutY="646.0" onMouseClicked="#handOneClicked" onMouseEntered="#handHover" onMouseExited="#handHoverOff" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="handTwo" fitHeight="173.0" fitWidth="132.0" layoutX="480.0" layoutY="646.0" onMouseClicked="#handTwoClicked" onMouseEntered="#handHover" onMouseExited="#handHoverOff" pickOnBounds="true" preserveRatio="true">
+
+      </ImageView>
+      <ImageView fx:id="handThree" fitHeight="173.0" fitWidth="132.0" layoutX="619.0" layoutY="646.0" onMouseClicked="#handThreeClicked" onMouseEntered="#handHover" onMouseExited="#handHoverOff" pickOnBounds="true" preserveRatio="true">
+
+      </ImageView>
+      <ImageView fx:id="handFour" fitHeight="173.0" fitWidth="132.0" layoutX="759.0" layoutY="646.0" onMouseClicked="#handFourClicked" onMouseEntered="#handHover" onMouseExited="#handHoverOff" pickOnBounds="true" preserveRatio="true">
+
+      </ImageView>
+      <ImageView fx:id="handFive" fitHeight="173.0" fitWidth="132.0" layoutX="896.0" layoutY="646.0" onMouseClicked="#handFiveClicked" onMouseEntered="#handHover" onMouseExited="#handHoverOff" pickOnBounds="true" preserveRatio="true">
+
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="684.0" onMouseClicked="#drawFirstCards" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@testCard.png" />
+            <Image url="@../../../../../src/main/resources/images/others/drawButton.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="handOne" fitHeight="173.0" fitWidth="132.0" layoutX="339.0" layoutY="646.0" onMouseEntered="#handHover" onMouseExited="#handHoverOff" pickOnBounds="true" preserveRatio="true">
+      <Label fx:id="playerOneDeckSize" layoutX="1282.0" layoutY="640.0" text="15">
+         <font>
+            <Font name="BlackChancery" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="phaseButton" fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="599.0" onMouseClicked="#phaseChoose" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@testCard.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="handTwo" fitHeight="173.0" fitWidth="132.0" layoutX="480.0" layoutY="646.0" onMouseEntered="#handHover" onMouseExited="#handHoverOff" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@testCard.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="handThree" fitHeight="173.0" fitWidth="132.0" layoutX="619.0" layoutY="646.0" onMouseEntered="#handHover" onMouseExited="#handHoverOff" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@testCard.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="handFour" fitHeight="173.0" fitWidth="132.0" layoutX="759.0" layoutY="646.0" onMouseEntered="#handHover" onMouseExited="#handHoverOff" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@testCard.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="handFive" fitHeight="173.0" fitWidth="132.0" layoutX="896.0" layoutY="646.0" onMouseEntered="#handHover" onMouseExited="#handHoverOff" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@testCard.png" />
+            <Image url="@../../../../../src/main/resources/images/others/phaseButton.jpg" />
          </image>
       </ImageView>
    </children>
