@@ -1,4 +1,4 @@
-package com.codecool.client;
+package com.codecool.api.network;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -31,11 +31,12 @@ public class Client {
         Socket client = null;
         try {
             client = new Socket(serverAddress, port);
-            OutputStream os = client.getOutputStream();
-            InputStreamReader inp = new InputStreamReader(client.getInputStream());
-            BufferedReader bf = new BufferedReader(inp);
-            PrintWriter pw = new PrintWriter(os, true);
-            System.out.println(bf.readLine());
+            ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
+            // out.writeObject(...);
+            ObjectInputStream in = new ObjectInputStream(client.getInputStream());
+            //Object obj = (Object)in.readObject();
+
+
             client.close();
 
         } catch (IOException e) {
