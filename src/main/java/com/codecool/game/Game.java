@@ -2,12 +2,13 @@ package com.codecool.game;
 
 import com.codecool.api.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Game {
+public class Game implements Serializable{
     private CardReader cr = new CardReader();
     private Random random = new Random();
     private List<Player> players = new ArrayList<>(); //to be able to check who is active

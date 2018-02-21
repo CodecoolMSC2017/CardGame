@@ -9,20 +9,8 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        // for testing
-        System.out.println("Start local server? (y)es");
-        char serverStart = sc.nextLine().charAt(0);
-        if (serverStart == 'y') {
-            Host server = new Host();
-
-        }
-        else {
-            Client client = new Client();
-            client.run();
-        }
-
-        // end of test section
-
+        Host server = null;
+        Client clinet = null;
 
         // create new Game object. This is where most of the game will happen actually.
         Game newGame = new Game();
@@ -50,8 +38,25 @@ public class Main {
                 System.out.println("Please provide name of the second player:");
                 String name2 = sc.nextLine();
                 newGame.startGame(name1, name2);
-            }else if (select == 2) {
-                break;
+            }
+            else if (select == 2) {
+                if (server == null) {
+                    server = new Host();
+                } else {
+                    System.out.println("Cannot do that, there is already a server running");
+                }
+            }
+            else if (select == 3) {
+                if (clinet == null) {
+                    clinet = new Client();
+                    clinet.run();
+                } else {
+                    System.out.println("Cannot do that, maximum player number is only two");
+                }
+            }
+            else{
+                System.exit(0);
+
             }
         }
     }

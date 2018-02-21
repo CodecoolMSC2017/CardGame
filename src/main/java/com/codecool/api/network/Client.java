@@ -32,7 +32,7 @@ public class Client {
         }
         Socket client = null;
         try {
-            Card test = new Card("nameOk", 0,0,0);
+            Card test = new Card("nameOk", 0, 0, 0);
             client = new Socket("localhost", port);
             ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
             out.writeObject(test);
@@ -41,8 +41,10 @@ public class Client {
             System.out.println(obj.getName());
 
             client.close();
-
-        } catch (IOException e) {
+        }
+        catch (NotSerializableException s){
+            System.err.println("Object is not serializable");
+        } catch (IOException i) {
             System.err.println("Failed to connect or no server is running!");;
         } catch (ClassNotFoundException e) {
             System.err.println("Class not found, might not got data fro mthe server");

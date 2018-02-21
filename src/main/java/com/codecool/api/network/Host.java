@@ -20,15 +20,14 @@ public class Host{
     }
 
     public String getServerAddress() {
-        return "x"; //servAddress.getHostAddress();
+        return servAddress.getHostAddress();
 
     }
 
     private void start() {
         Runnable serverTask = () -> {
             try {
-                String serverIP = servAddress.getHostAddress();
-                System.out.println("Server IP address : " + serverIP);
+                System.out.println("Server IP address : " + servAddress.getHostAddress() + " port:" + port);
 
                 ServerSocket server = new ServerSocket(port);
                 System.out.println("waiting for client to connect");
