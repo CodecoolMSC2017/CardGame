@@ -17,7 +17,7 @@ public class Client {
 
     // temporary constructor with hard coded address (localhost)
     public Client(){
-        serverAddress = "192.168.150.191";
+        serverAddress = "127.0.0.1";
     }
 
     public void run(){
@@ -33,7 +33,7 @@ public class Client {
         Socket client = null;
         try {
             Card test = new Card("nameOk", 0,0,0);
-            client = new Socket(serverAddress, port);
+            client = new Socket("localhost", port);
             ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
             out.writeObject(test);
             ObjectInputStream in = new ObjectInputStream(client.getInputStream());

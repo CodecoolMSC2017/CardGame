@@ -20,7 +20,7 @@ public class Host{
     }
 
     public String getServerAddress() {
-        return servAddress.getHostAddress();
+        return "x"; //servAddress.getHostAddress();
 
     }
 
