@@ -93,14 +93,13 @@ public class Controller extends Application {
         cr.loadDeck(Controller.playerOne);
         System.out.println(Controller.playerOne.getDeck().getCardList().size());
         playerOne.drawStartingHand();
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
         handOne.setImage(new Image(playerOne.getHand().getCardsInHand().get(0).getUrl()));
         handTwo.setImage(new Image(playerOne.getHand().getCardsInHand().get(1).getUrl()));
         handThree.setImage(new Image(playerOne.getHand().getCardsInHand().get(2).getUrl()));
         handFour.setImage(new Image(playerOne.getHand().getCardsInHand().get(3).getUrl()));
         handFive.setImage(new Image(playerOne.getHand().getCardsInHand().get(4).getUrl()));
         Controller.stage.setScene(new Scene(root,1366,768));
-
-
     }
 
     public void startButtonHover(){
@@ -252,7 +251,5 @@ public class Controller extends Application {
         st.play();
 
     }
-
-
 
 }

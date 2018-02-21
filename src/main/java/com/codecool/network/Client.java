@@ -27,7 +27,7 @@ public class Client {
         }
         Socket client = null;
         try {
-            Card test = new Card("nameOk", 0, 0, 0);
+            Card test = new Card("nameOk", 0, 0, 0, "sampleURL");
             client = new Socket(serverAddress, port);
             ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
             out.writeObject(test);

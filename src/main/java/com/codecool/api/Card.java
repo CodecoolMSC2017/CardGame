@@ -16,6 +16,7 @@ public class Card implements Serializable{
         this.intrique = intrique;
         this.fame = fame;
         this.state = false;
+        this.link = link;
     }
 
     public String getName() {
@@ -41,6 +42,8 @@ public class Card implements Serializable{
     public void setState(){
         state=!state;
     }
+
+    public String getUrl() { return link; }
 
     @Override
     public String toString() {
