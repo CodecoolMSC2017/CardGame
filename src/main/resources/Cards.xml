@@ -11,7 +11,7 @@
         <name>Edward The Black Prince</name>
         <military>6</military>
         <intrique>1</intrique>
-        <fame>3</fame>
+        <fame>3</fame>.
         <link>../resources/images/cards/edwardBlackPrince.png</link>
     </Card>
     <Card>

@@ -1,5 +1,6 @@
 package com.codecool.gui;
 
+import com.codecool.api.CardReader;
 import com.codecool.api.Player;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
@@ -88,7 +89,17 @@ public class Controller extends Application {
         Controller.playerOne = new Player(playerOneName.getText());
         Controller.playerTwo = new Player(playerTwoName.getText());
         Controller.root = FXMLLoader.load(getClass().getResource("battleScreen.fxml"));
+        CardReader cr = new CardReader();
+        cr.loadDeck(Controller.playerOne);
+        System.out.println(Controller.playerOne.getDeck().getCardList().size());
+        playerOne.drawStartingHand();
+        handOne.setImage(new Image(playerOne.getHand().getCardsInHand().get(0).getUrl()));
+        handTwo.setImage(new Image(playerOne.getHand().getCardsInHand().get(1).getUrl()));
+        handThree.setImage(new Image(playerOne.getHand().getCardsInHand().get(2).getUrl()));
+        handFour.setImage(new Image(playerOne.getHand().getCardsInHand().get(3).getUrl()));
+        handFive.setImage(new Image(playerOne.getHand().getCardsInHand().get(4).getUrl()));
         Controller.stage.setScene(new Scene(root,1366,768));
+
 
     }
 

@@ -31,7 +31,7 @@
             <DropShadow height="47.68" radius="26.305" width="59.54" />
          </effect>
       </ImageView>
-      <Label fx:id="startButton" layoutX="245.0" layoutY="273.0" onMouseClicked="#startGame" onMouseEntered="#startButtonHover" onMouseExited="#startButtonHoverOff" text="Singleplayer" textFill="#57240f">
+      <Label fx:id="startButton" layoutX="245.0" layoutY="273.0" onMouseClicked="#startGame" onMouseEntered="#startButtonHover" onMouseExited="#startButtonHoverOff" text="Start" textFill="#57240f">
          <font>
             <Font name="BlackChancery" size="41.0" />
          </font>
