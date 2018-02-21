@@ -1,6 +1,5 @@
 package com.codecool.game;
 
-
 import com.codecool.network.Client;
 import com.codecool.network.Host;
 
@@ -81,7 +80,7 @@ public class Main {
                     } else {
                         System.err.println("No available host found");
                     }
-                }*/else if (select == 4) {
+                }*/ else if (select == 4) {
                     System.exit(0);
                 } else {
                     System.out.println("Invalid selection. Please hit enter and try again!");
@@ -90,3 +89,4 @@ public class Main {
             }
         }
     }
+}
