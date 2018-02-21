@@ -8,7 +8,9 @@ public class ShowBoardState {
         System.out.print("\033[H\033[2J");
         System.out.flush();
 
-        System.out.format("Cards in your deck: %-80d %s : %d%n", activePlayer.getDeck().getCardList().size(), "Cards in opponent's deck", opponent.getDeck().getCardList().size());
+        System.out.format("%-80s %s%n%n", activePlayer.getName(), opponent.getName());
+
+        System.out.format("Cards in your deck: %-60d %s : %d%n%n", activePlayer.getDeck().getCardList().size(), "Cards in opponent's deck", opponent.getDeck().getCardList().size());
 
         System.out.format("%-80s %s %d%n", "Cards in your hand:", "Cards in opponent's hand: ", opponent.getHand().getCardsInHand().size());
 

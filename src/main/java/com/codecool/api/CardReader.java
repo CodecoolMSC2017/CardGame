@@ -34,8 +34,9 @@ public class CardReader {
                     int military = Integer.parseInt(cardElement.getElementsByTagName("military").item(0).getTextContent());
                     int intrique = Integer.parseInt(cardElement.getElementsByTagName("intrique").item(0).getTextContent());
                     int fame = Integer.parseInt(cardElement.getElementsByTagName("fame").item(0).getTextContent());
+                    String link = cardElement.getElementsByTagName("link").item(0).getTextContent();
 
-                    Card newCard = new Card(name, military, intrique, fame);
+                    Card newCard = new Card(name, military, intrique, fame, link);
 
                     player.getDeck().setCardList(newCard);
                 }

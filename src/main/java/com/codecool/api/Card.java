@@ -8,8 +8,9 @@ public class Card implements Serializable{
     private int intrique;
     private int fame;
     private boolean state;
+    private String link;
 
-    public Card(String name, int military, int intrique, int fame) {
+    public Card(String name, int military, int intrique, int fame, String link) {
         this.name = name;
         this.military = military;
         this.intrique = intrique;
