@@ -12,10 +12,14 @@ public class Board {
        return random.getRandomCard(onBoard);
     }
 
-    public void destroyCard(){
-        Card tmpCard = getRandomCard();
-        onBoard.remove(tmpCard);
-        graveyard.add(tmpCard);
+    public void destroyCard() throws NoUnitAvailableException {
+        if (getOnBoard().size() == 0) {
+            throw new NoUnitAvailableException("There was no unit available to destroy.");
+        }else {
+            Card tmpCard = getRandomCard();
+            onBoard.remove(tmpCard);
+            graveyard.add(tmpCard);
+        }
     }
 
     public void changeState(Card card){
@@ -23,6 +27,7 @@ public class Board {
     }
 
     public void playCard(Card card) {
+        card.setState();
         onBoard.add(card);
     }
 

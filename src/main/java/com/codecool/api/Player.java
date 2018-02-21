@@ -1,11 +1,11 @@
 package com.codecool.api;
 
 public class Player {
-    String name;
-    Deck deck = new Deck();
-    Hand hand = new Hand();
-    Board board  = new Board();
-    boolean active = false;
+    private String name;
+    private Deck deck = new Deck();
+    private Hand hand = new Hand();
+    private Board board  = new Board();
+    private boolean active = false;
 
 
     public Player(String name) {

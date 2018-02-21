@@ -23,9 +23,14 @@ public class Main {
         // end of test section
 
 
+        // create new Game object. This is where most of the game will happen actually.
         Game newGame = new Game();
 
+
+        // Display main menu and request basic input data (player names).
+        // After that Game is called passing two player names
         while (true) {
+            System.out.print("\033[H\033[2J");
             System.out.flush();
             int i = 1;
             System.out.println("Welcome to Medieval Wars!\nPlease choose from the menu:\n");

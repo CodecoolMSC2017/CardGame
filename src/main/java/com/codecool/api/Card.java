@@ -38,4 +38,9 @@ public class Card {
     public void setState(){
         state=!state;
     }
+
+    @Override
+    public String toString() {
+        return name + "{m:" + military + ", i:" + intrique + ", f:" + fame + "} " + (state ? "Active" : "Tired");
+    }
 }
