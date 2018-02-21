@@ -8,7 +8,7 @@ import java.net.UnknownHostException;
 
 public class Host{
     private InetAddress servAddress = null;
-    private final int port = 2100;
+    private final int port = 2101;
 
     public Host() {
         try {
@@ -27,8 +27,8 @@ public class Host{
     private void start() {
         Runnable serverTask = () -> {
             try {
-                String server_IP = servAddress.getHostAddress();
-                System.out.println("Server IP address : " + server_IP);
+                String serverIP = servAddress.getHostAddress();
+                System.out.println("Server IP address : " + serverIP);
 
                 ServerSocket server = new ServerSocket(port);
                 System.out.println("waiting for client to connect");

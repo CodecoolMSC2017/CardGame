@@ -1,5 +1,7 @@
 package com.codecool.api.network;
 
+import com.codecool.api.Card;
+
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -7,7 +9,7 @@ import java.net.UnknownHostException;
 
 public class Client {
     private final String serverAddress;
-    private final int port = 2100;
+    private final int port = 2101;
 
     public Client(String serverAddress) {
         this.serverAddress = serverAddress;
@@ -30,17 +32,20 @@ public class Client {
         }
         Socket client = null;
         try {
+            Card test = new Card("nameOk", 0,0,0);
             client = new Socket(serverAddress, port);
             ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
-            // out.writeObject(...);
+            out.writeObject(test);
             ObjectInputStream in = new ObjectInputStream(client.getInputStream());
-            //Object obj = (Object)in.readObject();
-
+            Card obj = (Card) in.readObject();
+            System.out.println(obj.getName());
 
             client.close();
 
         } catch (IOException e) {
-            System.err.println("Failed to connect or no server running!");;
+            System.err.println("Failed to connect or no server is running!");;
+        } catch (ClassNotFoundException e) {
+            System.err.println("Class not found, might not got data fro mthe server");
         }
 
 
