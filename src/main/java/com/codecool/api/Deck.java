@@ -18,4 +18,9 @@ public class Deck {
     public List<Card> getCardList(){
         return cardList;
     }
+
+    public void mill() {
+        Card tmpCard = random.getRandomCard(getCardList());
+        getCardList().remove(tmpCard);
+    }
 }

@@ -1,13 +1,37 @@
 package com.codecool.game;
 
+import com.codecool.api.network.Client;
+import com.codecool.api.network.Host;
+
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        Game newGame = new Game();
         Scanner sc = new Scanner(System.in);
+        // for testing
+        System.out.println("Start local server? (y)es");
+        char serverStart = sc.nextLine().charAt(0);
+        if (serverStart == 'y') {
+            Host server = new Host();
+
+        }
+        else {
+            Client client = new Client();
+            client.run();
+        }
+
+        // end of test section
+
+
+        // create new Game object. This is where most of the game will happen actually.
+        Game newGame = new Game();
+
+
+        // Display main menu and request basic input data (player names).
+        // After that Game is called passing two player names
         while (true) {
+            System.out.print("\033[H\033[2J");
             System.out.flush();
             int i = 1;
             System.out.println("Welcome to Medieval Wars!\nPlease choose from the menu:\n");

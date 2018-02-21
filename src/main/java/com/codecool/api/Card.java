@@ -1,6 +1,8 @@
 package com.codecool.api;
 
-public class Card {
+import java.io.Serializable;
+
+public class Card implements Serializable{
     private String name;
     private int military;
     private int intrique;
@@ -37,5 +39,10 @@ public class Card {
 
     public void setState(){
         state=!state;
+    }
+
+    @Override
+    public String toString() {
+        return name + "{m:" + military + ", i:" + intrique + ", f:" + fame + "} " + (state ? "Active" : "Tired");
     }
 }

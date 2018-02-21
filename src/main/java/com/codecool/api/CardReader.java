@@ -15,7 +15,7 @@ public class CardReader {
 
     public void loadDeck(Player player) {
         try {
-            File xmlFile = new File("src/main/resources/Cards.xml");
+            File xmlFile = new File("../resources/Cards.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document document = dBuilder.parse(xmlFile);

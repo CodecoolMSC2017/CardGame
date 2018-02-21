@@ -11,12 +11,13 @@ public class Hand {
         return cardsInHand;
     }
 
-    public Card play(){
-        return random.getRandomCard(cardsInHand);
+    public Card play(int index){
+        return cardsInHand.get(index);
     }
 
-    public void discard(Card discardCard){
-        cardsInHand.remove(discardCard);
+    public void discard(){
+        Card tmpCard = random.getRandomCard(cardsInHand);
+        cardsInHand.remove(tmpCard);
     }
 
 }
