@@ -1,7 +1,8 @@
 package com.codecool.game;
 
-import com.codecool.client.*;
-import com.codecool.host.*;
+import com.codecool.api.network.Client;
+import com.codecool.api.network.Host;
+
 import java.util.Scanner;
 
 public class Main {
