@@ -57,8 +57,8 @@ public class Controller extends Application {
     private static double screenHeight;
 
 
-    public static void main(String[] args) {
-        launch(args);
+    public static void main() {
+        launch();
     }
 
     public void start(Stage primaryStage) throws Exception{

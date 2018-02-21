@@ -2,56 +2,77 @@ package com.codecool.game;
 
 import com.codecool.api.network.Client;
 import com.codecool.api.network.Host;
+import com.codecool.gui.GuiMain;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import static com.codecool.gui.GuiMain.guimain;
 
 public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        // for testing
-        System.out.println("Start local server? (y)es");
-        char serverStart = sc.nextLine().charAt(0);
-        if (serverStart == 'y') {
-            Host server = new Host();
 
-        }
-        else {
-            Client client = new Client();
-            client.run();
-        }
+        System.out.println("Would you like to play on Graphical Interface? (y/any other button)");
+        String choice = sc.nextLine().toLowerCase();
 
-        // end of test section
+        if(choice.equals("y")) {
+            guimain();
+        }else {
 
+            // for testing
+            System.out.println("Start local server? (y)es");
+            char serverStart = sc.nextLine().charAt(0);
+            if (serverStart == 'y') {
+                Host server = new Host();
 
-        // create new Game object. This is where most of the game will happen actually.
-        Game newGame = new Game();
-
-
-        // Display main menu and request basic input data (player names).
-        // After that Game is called passing two player names
-        while (true) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-            int i = 1;
-            System.out.println("Welcome to Medieval Wars!\nPlease choose from the menu:\n");
-
-            for (MainMenu menu : MainMenu.values()) {
-                System.out.println(Integer.toString(i) + " " + menu.getValue());
-                i++;
+            } else {
+                Client client = new Client();
+                client.run();
             }
 
-            int select = sc.nextInt();
-            String empty = sc.nextLine();
+            // end of test section
 
-            if (select == 1) {
-                System.out.println("Please provide name of the first player:");
-                String name1 = sc.nextLine();
-                System.out.println("Please provide name of the second player:");
-                String name2 = sc.nextLine();
-                newGame.startGame(name1, name2);
-            }else if (select == 2) {
-                break;
+
+            // create new Game object. This is where most of the game will happen actually.
+            Game newGame = new Game();
+
+
+            // Display main menu and request basic input data (player names).
+            // After that Game is called passing two player names
+            while (true) {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+                int i = 1;
+                int select;
+                System.out.println("Welcome to Medieval Wars!\nPlease choose from the menu:\n");
+
+                for (MainMenu menu : MainMenu.values()) {
+                    System.out.println(Integer.toString(i) + " " + menu.getValue());
+                    i++;
+                }
+
+                try {
+                    select = sc.nextInt();
+                    sc.nextLine();
+                }catch (InputMismatchException e) {
+                    sc.nextLine(); //message was not visible, without sc.nextline it goes into a loop ???
+                    continue;
+                }
+
+                if (select == 1) {
+                    System.out.println("Please provide name of the first player:");
+                    String name1 = sc.nextLine();
+                    System.out.println("Please provide name of the second player:");
+                    String name2 = sc.nextLine();
+                    newGame.startGame(name1, name2);
+                } else if (select == 2) {
+                    break;
+                } else {
+                    System.out.println("Invalid selection. Please hit enter and try again!");
+                    sc.nextLine();
+                }
             }
         }
     }

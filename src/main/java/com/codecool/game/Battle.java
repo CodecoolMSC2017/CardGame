@@ -19,15 +19,31 @@ public class Battle {
         List<Integer> attackers = new ArrayList<>();
         List<Integer> defenders = new ArrayList<>();
 
+        if (choice.equals("m")) {
+            choice = "military";
+        }else if (choice.equals("i")) {
+            choice = "intrique";
+        }else if (choice.equals("f")) {
+            choice = "fame";
+        }
 
         //first attacker needs to choose with which cards to attack. Any number of attackers can be
         //selected but can not select the same character twice. Also trying to catch exceptions.
         //tired characters can't attack
 
         while (true) {
+
+            //Information printed on screen:
             stage.showBoard(active, opponent);
+            System.out.println("\nCharacters you have already sent to attack:");
+            for (int i = 0; i < attackers.size(); i++) {
+                System.out.print("|" + active.getBoard().getOnBoard().get(attackers.get(i)).getName() + "|\t");
+            }
+            System.out.println("\n\nYour total strength is: " + Integer.toString(attackPower));
             System.out.println("Please select an attacker, X to cancel or hit Enter to finish selection");
             String selection = sc.nextLine().toLowerCase();
+
+            //selection gets evaluated:
             if (selection.length() > 1) {
                 throw new InvalidOptionException("There is no such option!");
             } else if (selection.length() == 0) {
@@ -43,9 +59,9 @@ public class Battle {
                     throw new InvalidOptionException("This unit is too tired to fight!");
                 } else {
                     attackers.add(selected);
-                    if (choice.equals("m")) {
+                    if (choice.equals("military")) {
                         attackPower += active.getBoard().getOnBoard().get(selected).getMilitary();
-                    } else if (choice.equals("i")) {
+                    } else if (choice.equals("intrique")) {
                         attackPower += active.getBoard().getOnBoard().get(selected).getIntrique();
                     } else {
                         attackPower += active.getBoard().getOnBoard().get(selected).getFame();
@@ -61,9 +77,24 @@ public class Battle {
 
         if (attackers.size() > 0) {
             while (true) {
+
+                //This is just printing information on the screen
                 stage.showBoard(opponent, active);
-                System.out.println("Please select a defender, X to cancel or hit Enter to finish selection");
+                System.out.println("\n" + active.getName() + " has initiated a " + choice + " battle against you!");
+                System.out.println("His attackers are: ");
+                for (int i = 0; i < attackers.size(); i++) {
+                    System.out.print("|" + active.getBoard().getOnBoard().get(attackers.get(i)).getName() + "|\t");
+                }
+                System.out.println("His total strength is: " + Integer.toString(attackPower));
+                System.out.println("\nPlease select a defender, X to cancel or hit Enter to finish selection");
+                System.out.println("Your have declared following efenders so far: ");
+                for (int i = 0; i < defenders.size(); i++) {
+                    System.out.print("|" + opponent.getBoard().getOnBoard().get(attackers.get(i)).getName() + "|\t");
+                }
+                System.out.println("\n\nYour total strength is: " + Integer.toString(defenderPower));
                 String selection = sc.nextLine().toLowerCase();
+
+                //this is where stuff happens
                 if (selection.length() > 1) {
                     throw new InvalidOptionException("There is no such option!");
                 } else if (selection.length() == 0) {
@@ -79,9 +110,9 @@ public class Battle {
                         throw new InvalidOptionException("This unit is too tired to fight! Hit enter to continue");
                     } else {
                         attackers.add(selected);
-                        if (choice.equals("m")) {
+                        if (choice.equals("military")) {
                             defenderPower += opponent.getBoard().getOnBoard().get(selected).getMilitary();
-                        } else if (choice.equals("i")) {
+                        } else if (choice.equals("intrique")) {
                             defenderPower += opponent.getBoard().getOnBoard().get(selected).getIntrique();
                         } else {
                             defenderPower += opponent.getBoard().getOnBoard().get(selected).getFame();

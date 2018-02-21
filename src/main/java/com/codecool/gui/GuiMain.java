@@ -1,9 +1,9 @@
 package com.codecool.gui;
 
 public class GuiMain {
-    public static void main(String[] args) {
+    public static void guimain() {
 
-        Controller.main(args);
+        Controller.main();
 
     }
 
