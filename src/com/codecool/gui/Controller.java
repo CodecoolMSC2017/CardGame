@@ -120,11 +120,6 @@ public class Controller extends Application {
         System.out.println(playerOne.getHand().getCardsInHand().size());
         System.out.println(playerOne.getHand().getCardsInHand().get(0).getLink());
         Controller.stage.setScene(new Scene(root,1366,768));
-
-
-
-
-
     }
 
     public void drawFirstCards() {
@@ -286,6 +281,7 @@ public class Controller extends Application {
         st.play();
 
     }
+
 
     public void handOneClicked(){
         playerOne.playFromHand(0);
@@ -487,8 +483,5 @@ public class Controller extends Application {
 
         handFive.setImage(null);
     }
-
-
-
 
 }
