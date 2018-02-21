@@ -1,7 +1,7 @@
 package com.codecool.game;
 
-import com.codecool.api.network.Client;
-import com.codecool.api.network.Host;
+import com.codecool.network.Client;
+import com.codecool.network.Host;
 
 import java.util.Scanner;
 
@@ -48,15 +48,19 @@ public class Main {
             }
             else if (select == 3) {
                 if (clinet == null) {
-                    clinet = new Client();
+                    System.out.println("Please enter the ip address of the host: ");
+                    String ip = sc.nextLine();
+                    clinet = new Client(ip);
                     clinet.run();
                 } else {
-                    System.out.println("Cannot do that, maximum player number is only two");
+                    System.err.println("No available host found");
                 }
             }
-            else{
+            else if (select == 4){
                 System.exit(0);
-
+            }
+            else {
+                System.out.println("Wrong input!");
             }
         }
     }

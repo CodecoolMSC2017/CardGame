@@ -1,4 +1,4 @@
-package com.codecool.api.network;
+package com.codecool.network;
 
 import com.codecool.api.Card;
 
@@ -15,11 +15,6 @@ public class Client {
         this.serverAddress = serverAddress;
     }
 
-    // temporary constructor with hard coded address (localhost)
-    public Client(){
-        serverAddress = "127.0.0.1";
-    }
-
     public void run(){
         String clientIp;
         try{
@@ -33,7 +28,7 @@ public class Client {
         Socket client = null;
         try {
             Card test = new Card("nameOk", 0, 0, 0);
-            client = new Socket("localhost", port);
+            client = new Socket(serverAddress, port);
             ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
             out.writeObject(test);
             ObjectInputStream in = new ObjectInputStream(client.getInputStream());

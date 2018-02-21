@@ -1,4 +1,4 @@
-package com.codecool.api.network;
+package com.codecool.network;
 
 import java.io.*;
 import java.net.InetAddress;
