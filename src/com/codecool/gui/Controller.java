@@ -5,9 +5,6 @@ import com.codecool.api.Player;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,18 +14,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-import javafx.scene.control.*;
 import javafx.util.Duration;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.beans.EventHandler;
-import java.io.File;
-import java.util.ArrayList;
 
 
 public class Controller extends Application {
@@ -74,7 +63,7 @@ public class Controller extends Application {
 
     public void main() {
 
-        Controller.audio = new AudioClip(getClass().getResource("backgroundMusic.wav").toExternalForm());
+        Controller.audio = new AudioClip(getClass().getResource("../../../sound/backgroundMusic.wav").toExternalForm());
         Controller.audio.setVolume(Controller.volume);
         Controller.audio.setCycleCount(100);
         Controller.audio.play();
@@ -113,7 +102,7 @@ public class Controller extends Application {
     }
 
     public void startGame() throws Exception{
-        AudioClip audio = new AudioClip(this.getClass().getResource("gong.mp3").toExternalForm());
+        AudioClip audio = new AudioClip(this.getClass().getResource("../../../sound/gong.mp3").toExternalForm());
         audio.play();
         Thread.sleep(3000);
         Controller.root = FXMLLoader.load(getClass().getResource("playerNameScreen.fxml"));
@@ -149,7 +138,7 @@ public class Controller extends Application {
 
 
     public void startButtonHover(){
-        AudioClip audio = new AudioClip(this.getClass().getResource("hoverSound.wav").toExternalForm());
+        AudioClip audio = new AudioClip(this.getClass().getResource("../../../sound/hoverSound.wav").toExternalForm());
         audio.play();
         startButton.setScaleX(1.2);
         startButton.setScaleY(1.2);
@@ -164,7 +153,7 @@ public class Controller extends Application {
     }
 
     public void exitButtonHover(){
-        AudioClip audio = new AudioClip(this.getClass().getResource("hoverSound.wav").toExternalForm());
+        AudioClip audio = new AudioClip(this.getClass().getResource("../../../sound/hoverSound.wav").toExternalForm());
         audio.play();
         exitButton.setScaleX(1.2);
         exitButton.setScaleY(1.2);
@@ -178,7 +167,7 @@ public class Controller extends Application {
     }
 
     public void optionsButtonHover(){
-        AudioClip audio = new AudioClip(this.getClass().getResource("hoverSound.wav").toExternalForm());
+        AudioClip audio = new AudioClip(this.getClass().getResource("../../../sound/hoverSound.wav").toExternalForm());
         audio.play();
         optionsButton.setScaleX(1.2);
         optionsButton.setScaleY(1.2);
@@ -193,7 +182,7 @@ public class Controller extends Application {
     }
 
     public void confirmButtonHover(){
-        AudioClip mApplause = new AudioClip(this.getClass().getResource("hoverSound.wav").toExternalForm());
+        AudioClip mApplause = new AudioClip(this.getClass().getResource("../../../sound/hoverSound.wav").toExternalForm());
         mApplause.play();
         confirmButton.setScaleX(1.1);
         confirmButton.setScaleY(1.1);

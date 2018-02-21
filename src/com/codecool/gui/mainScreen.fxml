@@ -12,7 +12,7 @@
    <children>
       <ImageView fx:id="background" fitHeight="768.0" fitWidth="1373.0" layoutX="-3.0" layoutY="-1.0" pickOnBounds="true">
          <image>
-            <Image url="@../../../../resources/images/others/background.jpg" />
+            <Image url="@../../../images/others/background.jpg" />
          </image>
       </ImageView>
       <Label layoutX="106.0" layoutY="14.0" prefHeight="92.0" prefWidth="384.0" text="Medieval Warfare" textFill="WHITE">
@@ -25,7 +25,7 @@
       </Label>
       <ImageView fitHeight="596.0" fitWidth="573.0" layoutX="175.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@menuBackDrop.png" />
+            <Image url="@../../../images/others/menuBackDrop.png" />
          </image>
          <effect>
             <DropShadow height="47.68" radius="26.305" width="59.54" />

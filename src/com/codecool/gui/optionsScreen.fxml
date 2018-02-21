@@ -10,14 +10,14 @@
 
 <AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.gui.Controller">
    <children>
-      <ImageView fx:id="background" fitHeight="768.0" fitWidth="1366.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="background" fitHeight="768.0" fitWidth="1366.0" pickOnBounds="true">
          <image>
-            <Image url="@startingScreen.jpg" />
+            <Image url="@../../../images/others/background.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="534.0" fitWidth="944.0" layoutX="216.0" layoutY="115.0" opacity="0.53" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@backdrop.jpg" />
+            <Image url="@../../../images/others/backdrop.jpg" />
          </image>
       </ImageView>
       <Label layoutX="602.0" layoutY="27.0" text="Options" textFill="WHITE">
@@ -40,7 +40,7 @@
       </CheckBox>
       <ImageView fx:id="backFromOptions" fitHeight="150.0" fitWidth="200.0" layoutX="580.0" layoutY="511.0" onMouseClicked="#goBackToMain" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@backButton.jpg" />
+            <Image url="@../../../images/others/backButton.jpg" />
          </image>
       </ImageView>
    </children>
