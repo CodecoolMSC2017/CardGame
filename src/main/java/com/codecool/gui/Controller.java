@@ -158,8 +158,7 @@ public class Controller extends Application {
         Controller.stage.setScene(new Scene(root,1366,768));
     }
 
-
-    public void onBoardHover()throws InterruptedException{
+    public void onBoardHover(){
         tmpImg = new ImageView();
         ImageView[] cardsOnBoard = {onBoardOne,onBoardTwo,onBoardThree,onBoardFour,onBoardFive,onBoardSix,onBoardSeven};
 
@@ -181,8 +180,7 @@ public class Controller extends Application {
 
     }
 
-
-    public void onBoardHoverOff()throws Exception{
+    public void onBoardHoverOff(){
         ScaleTransition st = new ScaleTransition(Duration.millis(250), tmpImg);
         st.setByX(-(tmpImg.getScaleX()-1));
         st.setByY(-(tmpImg.getScaleY()-1));
@@ -192,7 +190,7 @@ public class Controller extends Application {
 
     }
 
-    public void setFullscreen()throws Exception{
+    public void setFullscreen(){
         Controller.stage.setFullScreen(!Controller.stage.isFullScreen());
         background.setFitWidth(screenWidth);
         background.setFitHeight(screenHeight);

@@ -1,6 +1,6 @@
 package com.codecool.gui;
 
-public class Main{
+public class GuiMain {
     public static void main(String[] args) {
 
         Controller.main(args);
