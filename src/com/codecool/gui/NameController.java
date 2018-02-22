@@ -13,18 +13,33 @@ import javafx.scene.image.ImageView;
 import com.codecool.api.Player;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 public class NameController {
 
     private GameState gm = GameState.getInstance();
-
+    @FXML
     private AnchorPane ap;
     @FXML
     TextField playerOneName;
     @FXML
     TextField playerTwoName;
+    @FXML
+    ImageView confirmButton;
 
+    public void confirmButtonHover(){
+        AudioClip mApplause = new AudioClip(this.getClass().getResource("../../../sound/hoverSound.wav").toExternalForm());
+        mApplause.play();
+        confirmButton.setScaleX(1.1);
+        confirmButton.setScaleY(1.1);
+
+    }
+
+    public void confirmButtonHoverOff(){
+        confirmButton.setScaleX(1);
+        confirmButton.setScaleY(1);
+    }
 
     public void confirmButton()throws Exception{
         Player playerOne = new Player(playerOneName.getText());
@@ -37,7 +52,7 @@ public class NameController {
         playerTwo.drawStartingHand();
         Parent root = FXMLLoader.load(getClass().getResource("battleScreen.fxml"));
         Stage stage = (Stage) ap.getScene().getWindow();
-        stage.setScene(new Scene(root,1366,768));
+        stage.setScene(new Scene(root,1280,720));
 
         /*for (int i=0;i<playerOne.getHand().getCardsInHand().size();i++){
             ImageView card = new ImageView();

@@ -21,7 +21,7 @@ public class GuiMain extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
         stage.setTitle("Medieval Warfare");
-        stage.setScene(new Scene(root, screenWidth, screenHeight));
+        stage.setScene(new Scene(root, 1280, 720));
         stage.setResizable(false);
         stage.show();
     }

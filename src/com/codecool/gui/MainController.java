@@ -46,7 +46,7 @@ public class MainController {
         root = FXMLLoader.load(getClass().getResource("optionsScreen.fxml"));
         Stage stage = (Stage) ap.getScene().getWindow();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        stage.setScene(new Scene(root,screenSize.getWidth(), screenSize.getHeight()));
+        stage.setScene(new Scene(root,1280, 720));
     }
 
 
@@ -58,7 +58,7 @@ public class MainController {
         root = FXMLLoader.load(getClass().getResource("playerNameScreen.fxml"));
         Stage stage = (Stage) ap.getScene().getWindow();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        stage.setScene(new Scene(root,screenSize.getWidth(), screenSize.getHeight()));
+        stage.setScene(new Scene(root,1280, 720));
     }
 
 
