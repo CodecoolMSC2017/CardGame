@@ -1,7 +1,6 @@
 package com.codecool.gui;
 
 import com.codecool.api.Player;
-import javafx.scene.Parent;
 import javafx.stage.Stage;
 
 public class GameState {
@@ -18,7 +17,7 @@ public class GameState {
         return ourInstance;
     }
 
-    private GameState() {
+    public GameState() {
     }
 
     public Player getPlayerOne() {
@@ -49,7 +48,9 @@ public class GameState {
         GameState.ourInstance = ourInstance;
     }
 
-    public static GameState getOurInstance() {
+    /*public static GameState getOurInstance() {
         return ourInstance;
-    }
+    }*/
+
+
 }

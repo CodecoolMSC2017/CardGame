@@ -29,5 +29,4 @@ public class GuiMain extends Application {
         audio.play();
         launch();
     }
-
 }
