@@ -7,7 +7,7 @@ import javafx.scene.layout.FlowPane;
 
 public class BattleController {
 
-    private GameState gm = GameState.getInstance();
+
     @FXML
     FlowPane playerOneHand;
     @FXML
@@ -16,8 +16,11 @@ public class BattleController {
     FlowPane playerOneBoard;
     @FXML
     FlowPane playerTwoBoard;
-
+    static GameState gm;
     public void initialize() {
+
+        gm=GuiMain.gm;
+
         for (int i = 0; i < gm.getPlayerOne().getHand().getCardsInHand().size(); i++) {
             ImageView card = new ImageView();
             card.setImage(new Image(gm.getPlayerOne().getHand().getCardsInHand().get(i).getUrl()));

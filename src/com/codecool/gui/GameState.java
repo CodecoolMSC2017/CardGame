@@ -10,13 +10,13 @@ public class GameState {
     private Stage stage;
     private Parent root;
 
-    private static GameState ourInstance = new GameState();
+    /*private static GameState ourInstance = new GameState();
 
     public static GameState getInstance() {
         return ourInstance;
-    }
+    }*/
 
-    private GameState() {
+    public GameState() {
     }
 
     public Player getPlayerOne() {
@@ -51,7 +51,9 @@ public class GameState {
         this.root = root;
     }
 
-    public static GameState getOurInstance() {
+    /*public static GameState getOurInstance() {
         return ourInstance;
-    }
+    }*/
+
+
 }

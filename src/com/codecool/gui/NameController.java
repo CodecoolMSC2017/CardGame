@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 
 public class NameController {
 
-    private GameState gm = GameState.getInstance();
+    //private GameState gm = GameState.getInstance();
     @FXML
     private AnchorPane ap;
     @FXML
@@ -27,7 +27,7 @@ public class NameController {
     TextField playerTwoName;
     @FXML
     ImageView confirmButton;
-
+    GameState gm;
     public void confirmButtonHover(){
         AudioClip mApplause = new AudioClip(this.getClass().getResource("../../../sound/hoverSound.wav").toExternalForm());
         mApplause.play();
@@ -42,8 +42,11 @@ public class NameController {
     }
 
     public void confirmButton()throws Exception{
+        gm=GuiMain.gm;
         Player playerOne = new Player(playerOneName.getText());
         Player playerTwo = new Player(playerTwoName.getText());
+        gm.setPlayerOne(playerOne);
+        gm.setPlayerTwo(playerTwo);
 
         CardReader cr = new CardReader();
         cr.loadDeck(playerOne);
@@ -66,7 +69,6 @@ public class NameController {
             playerTwoHand.getChildren().add(card);
         }*/
 
-        gm.setPlayerOne(playerOne);
-        gm.setPlayerTwo(playerTwo);
+
     }
 }

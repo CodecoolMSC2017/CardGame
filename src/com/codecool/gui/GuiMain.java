@@ -12,10 +12,10 @@ import javafx.stage.Stage;
 import java.awt.*;
 
 public class GuiMain extends Application {
-    public GameState gm;
+    public static GameState gm;
 
     public void start(Stage primaryStage) throws Exception{
-        gm = GameState.getInstance();
+        gm = new GameState();
         Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
         primaryStage.setTitle("Medieval Warfare");
         primaryStage.setScene(new Scene(root, 1280, 720));
