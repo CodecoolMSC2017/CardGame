@@ -49,13 +49,6 @@ public class MainController {
         stage.setScene(new Scene(root,screenSize.getWidth(), screenSize.getHeight()));
     }
 
-/*    public void setFullscreen(){
-        stage.setFullScreen(!stage.isFullScreen());
-        background.setFitWidth(screenWidth);
-        background.setFitHeight(screenHeight);
-        background.setImage(new Image("startingScreen1920.jpg"));
-    }
-*/
 
     //Choosing New Game*/
     public void startGame() throws Exception{
@@ -69,7 +62,7 @@ public class MainController {
     }
 
 
-    /*public void confirmButton()throws Exception{
+    public void confirmButton()throws Exception{
         playerOne = new Player(playerOneName.getText());
         playerTwo = new Player(playerTwoName.getText());
 
@@ -182,11 +175,6 @@ public class MainController {
 
 
     }
-
-
-    public void goBackToMain()throws Exception{
-        root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
-        stage.setScene(new Scene(root,1366,768));
 
     public void handHover(){
         tmpImgHand = new ImageView();
