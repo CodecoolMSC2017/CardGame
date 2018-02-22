@@ -17,8 +17,8 @@ import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 public class NameController {
+    private GameState gm = GameState.getInstance();
 
-    //private GameState gm = GameState.getInstance();
     @FXML
     private AnchorPane ap;
     @FXML
@@ -27,7 +27,8 @@ public class NameController {
     TextField playerTwoName;
     @FXML
     ImageView confirmButton;
-    GameState gm;
+
+
     public void confirmButtonHover(){
         AudioClip mApplause = new AudioClip(this.getClass().getResource("../../../sound/hoverSound.wav").toExternalForm());
         mApplause.play();
@@ -42,7 +43,6 @@ public class NameController {
     }
 
     public void confirmButton()throws Exception{
-        gm=GuiMain.gm;
         Player playerOne = new Player(playerOneName.getText());
         Player playerTwo = new Player(playerTwoName.getText());
         gm.setPlayerOne(playerOne);
@@ -53,22 +53,12 @@ public class NameController {
         cr.loadDeck(playerTwo);
         playerOne.drawStartingHand();
         playerTwo.drawStartingHand();
+
+        gm.setPlayerOne(playerOne);
+        gm.setPlayerTwo(playerTwo);
+
         Parent root = FXMLLoader.load(getClass().getResource("battleScreen.fxml"));
         Stage stage = (Stage) ap.getScene().getWindow();
         stage.setScene(new Scene(root,1280,720));
-
-        /*for (int i=0;i<playerOne.getHand().getCardsInHand().size();i++){
-            ImageView card = new ImageView();
-            card.setImage(new Image(playerOne.getHand().getCardsInHand().get(i).getUrl()));
-            playerOneHand.getChildren().addAll(card);
-        }
-
-
-        for (int i=0;i<playerTwo.getHand().getCardsInHand().size();i++){
-            ImageView card = new ImageView(new Image(playerTwo.getHand().getCardsInHand().get(i).getUrl()));
-            playerTwoHand.getChildren().add(card);
-        }*/
-
-
     }
 }

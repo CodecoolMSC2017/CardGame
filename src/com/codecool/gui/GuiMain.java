@@ -12,10 +12,8 @@ import javafx.stage.Stage;
 import java.awt.*;
 
 public class GuiMain extends Application {
-    public static GameState gm;
 
     public void start(Stage primaryStage) throws Exception{
-        gm = new GameState();
         Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
         primaryStage.setTitle("Medieval Warfare");
         primaryStage.setScene(new Scene(root, 1280, 720));
@@ -31,5 +29,4 @@ public class GuiMain extends Application {
         audio.play();
         launch();
     }
-
 }

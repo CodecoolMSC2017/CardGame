@@ -1,21 +1,23 @@
 package com.codecool.gui;
 
 import com.codecool.api.Player;
-import javafx.scene.Parent;
 import javafx.stage.Stage;
 
 public class GameState {
     private Player playerOne;
     private Player playerTwo;
     private Stage stage;
-    private Parent root;
     private String phase="";
 
-    /*private static GameState ourInstance = new GameState();
+
+    private static GameState ourInstance = null;
 
     public static GameState getInstance() {
+        if (ourInstance == null) {
+            ourInstance = new GameState();
+        }
         return ourInstance;
-    }*/
+    }
 
     public GameState() {
     }
@@ -44,12 +46,8 @@ public class GameState {
         this.stage = stage;
     }
 
-    public Parent getRoot() {
-        return root;
-    }
-
-    public void setRoot(Parent root) {
-        this.root = root;
+    public static void setOurInstance(GameState ourInstance) {
+        GameState.ourInstance = ourInstance;
     }
 
     /*public static GameState getOurInstance() {

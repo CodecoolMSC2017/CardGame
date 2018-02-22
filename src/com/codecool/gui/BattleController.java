@@ -17,7 +17,7 @@ import java.awt.event.MouseEvent;
 
 public class BattleController {
 
-
+    private GameState gm = GameState.getInstance();
     @FXML
     FlowPane playerOneHand;
     @FXML
@@ -26,16 +26,17 @@ public class BattleController {
     FlowPane playerOneBoard;
     @FXML
     FlowPane playerTwoBoard;
+
     @FXML ImageView recruit;
     @FXML ImageView battle;
-    GameState gm;
+
     ImageView tmpImg;
     int cardsPlaced;
     DropShadow sh = new DropShadow();
 
-    public void initialize() {
 
-        gm=GuiMain.gm;
+
+    public void initialize() {
 
         sh.setWidth(50);
         sh.setHeight(50);
@@ -52,6 +53,8 @@ public class BattleController {
             card.setImage(new Image(gm.getPlayerOne().getHand().getCardsInHand().get(i).getUrl()));
             playerOneHand.getChildren().addAll(card);
         }
+
+
 
 
 
