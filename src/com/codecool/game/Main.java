@@ -11,6 +11,8 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        Host server = null;
+        Client client = null;
 
         System.out.println("Would you like to play on Graphical Interface? (y/any other button)");
         String choice = sc.nextLine().toLowerCase();
@@ -19,20 +21,6 @@ public class Main {
             GuiMain gui = new GuiMain();
             gui.guimain();
         } else {
-
-            // for testing
- /*           System.out.println("Start local server? (y)es");
-            char serverStart = sc.nextLine().charAt(0);
-            if (serverStart == 'y') {
-                Host server = new Host();
-            } else {
-                Client client = new Client();
-                client.run();
-            }*/
-
-            // end of test section
-
-
             // create new Game object. This is where most of the game will happen actually.
             Game newGame = new Game();
 
@@ -65,7 +53,7 @@ public class Main {
                     System.out.println("Please provide name of the second player:");
                     String name2 = sc.nextLine();
                     newGame.startGame(name1, name2);
-                }/* else if (select == 2) {
+                } else if (select == 2) {
                     if (server == null) {
                         server = new Host();
                     } else {
@@ -80,7 +68,7 @@ public class Main {
                     } else {
                         System.err.println("No available host found");
                     }
-                }*/ else if (select == 4) {
+                } else if (select == 4) {
                     System.exit(0);
                 } else {
                     System.out.println("Invalid selection. Please hit enter and try again!");
