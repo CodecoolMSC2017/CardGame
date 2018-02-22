@@ -34,6 +34,8 @@ public class MainController {
     Label exitButton;
     @FXML
     Label optionsButton;
+    @FXML
+    Label networkButton;
 
 
     //Choosing exit option
@@ -60,18 +62,15 @@ public class MainController {
     }
 
 
-    /*public void phaseChoose()throws Exception{
-        phaseScreen=new Stage();
-        phaseRoot = FXMLLoader.load(getClass().getResource("phaseChooseScreen.fxml"));
-        phaseScreen.setScene(new Scene(phaseRoot,250,400));
-        phaseScreen.show();
+    public void networkOptions() throws Exception{
+        root = FXMLLoader.load(getClass().getResource("networkScreen.fxml"));
+        Stage stage = (Stage) ap.getScene().getWindow();
+        stage.setScene(new Scene(root,1280, 720));
     }
 
 
-
-
     //Button Hover actions
-*/    public void startButtonHover(){
+    public void startButtonHover(){
         AudioClip audio = new AudioClip(this.getClass().getResource("../../../sound/hoverSound.wav").toExternalForm());
         audio.play();
         startButton.setScaleX(1.2);
@@ -107,114 +106,16 @@ public class MainController {
         optionsButton.setScaleY(1);
     }
 
-
-/*    public void onBoardHover(){
-        tmpImg = new ImageView();
-        ImageView[] cardsOnBoard = {onBoardOne,onBoardTwo,onBoardThree,onBoardFour,onBoardFive,onBoardSix,onBoardSeven};
-
-        for(ImageView i : cardsOnBoard){
-            if(i.isHover()){
-                tmpImg=i;
-                break;
-            }
-        }
-        ScaleTransition st = new ScaleTransition(Duration.millis(250),tmpImg );
-        st.setByX(0.3f);
-        st.setByY(0.3f);
-        st.setCycleCount(1);
-        st.play();
-        }
-
-    public void onBoardHoverOff(){
-        ScaleTransition st = new ScaleTransition(Duration.millis(250), tmpImg);
-        st.setByX(-(tmpImg.getScaleX()-1));
-        st.setByY(-(tmpImg.getScaleY()-1));
-        st.setCycleCount(1);
-        st.play();
-
-
+    public void networkButtonHover(){
+        AudioClip audio = new AudioClip(this.getClass().getResource("../../../sound/hoverSound.wav").toExternalForm());
+        audio.play();
+        networkButton.setScaleX(1.2);
+        networkButton.setScaleY(1.2);
     }
 
-    public void handHover(){
-        tmpImgHand = new ImageView();
-        ImageView[] cardsInHand = {handOne,handTwo,handThree,handFour,handFive};
-
-        for(ImageView i : cardsInHand){
-            if(i.isHover()){
-                tmpImgHand=i;
-                break;
-            }
-        }
-        ScaleTransition st = new ScaleTransition(Duration.millis(250),tmpImgHand );
-        st.setByX(0.3f);
-        st.setByY(0.3f);
-        st.setCycleCount(1);
-        TranslateTransition tt = new TranslateTransition(Duration.millis(250), tmpImgHand);
-        tt.setByY(-50f);
-        tt.setCycleCount(1);
-
-
-        tt.play();
-        st.play();
+    public void networkButtonHoverOff(){
+        networkButton.setScaleX(1);
+        networkButton.setScaleY(1);
     }
-
-    public void handHoverOff(){
-        ScaleTransition st = new ScaleTransition(Duration.millis(250), tmpImgHand);
-        st.setByX(-(tmpImgHand.getScaleX()-1));
-        st.setByY(-(tmpImgHand.getScaleY()-1));
-        st.setCycleCount(1);
-        TranslateTransition tt = new TranslateTransition(Duration.millis(250), tmpImgHand);
-        tt.setToY(1);
-        tt.setCycleCount(1);
-
-
-        tt.play();
-        st.play();
-
-    }
-
-
-    public void handOneClicked(){
-        playerOne.playFromHand(0);
-        switch(onBoardCounter){
-            case 0:
-
-                onBoardOne.setImage(handOne.getImage());
-                onBoardCounter++;
-                break;
-            case 1:
-                onBoardTwo.setImage(handOne.getImage());
-                onBoardCounter++;
-                break;
-            case 2:
-                onBoardThree.setImage(handOne.getImage());
-                onBoardCounter++;
-                break;
-            case 3:
-                onBoardFour.setImage(handOne.getImage());
-                onBoardCounter++;
-                break;
-            case 4:
-                onBoardFive.setImage(handOne.getImage());
-                onBoardCounter++;
-                break;
-            case 5:
-                onBoardSix.setImage(handOne.getImage());
-                onBoardCounter++;
-                break;
-            case 6:
-                onBoardSeven.setImage(handOne.getImage());
-                onBoardCounter++;
-                break;
-        }
-
-
-        handOne.setImage(handTwo.getImage());
-        handTwo.setImage(handThree.getImage());
-        handThree.setImage(handFour.getImage());
-        handFour.setImage(handFive.getImage());
-        handFive.setImage(null);
-    }
-*/
 
 }

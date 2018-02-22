@@ -31,7 +31,7 @@
             <DropShadow height="47.68" radius="26.305" width="59.54" />
          </effect>
       </ImageView>
-      <Label fx:id="startButton" layoutX="227.0" layoutY="249.0" onMouseClicked="#startGame" onMouseEntered="#startButtonHover" onMouseExited="#startButtonHoverOff" text="Start" textFill="#57240f">
+      <Label fx:id="startButton" layoutX="219.0" layoutY="200.0" onMouseClicked="#startGame" onMouseEntered="#startButtonHover" onMouseExited="#startButtonHoverOff" text="Start" textFill="#57240f">
          <font>
             <Font name="BlackChancery" size="41.0" />
          </font>
@@ -39,12 +39,20 @@
             <GaussianBlur radius="0.0" />
          </effect>
       </Label>
-      <Label fx:id="optionsButton" layoutX="214.0" layoutY="359.0" onMouseClicked="#enterOptions" onMouseEntered="#optionsButtonHover" onMouseExited="#optionsButtonHoverOff" text="Options" textFill="#57240f">
+      <Label fx:id="networkButton" layoutX="190.0" layoutY="298.0" onMouseClicked="#networkOptions" onMouseEntered="#networkButtonHover" onMouseExited="#networkButtonHoverOff" text="Network" textFill="#57240f">
+         <font>
+            <Font name="BlackChancery" size="41.0" />
+         </font>
+         <effect>
+            <GaussianBlur radius="0.0" />
+         </effect>
+      </Label>
+      <Label fx:id="optionsButton" layoutX="196.0" layoutY="396.0" onMouseClicked="#enterOptions" onMouseEntered="#optionsButtonHover" onMouseExited="#optionsButtonHoverOff" text="Options" textFill="#57240f">
          <font>
             <Font name="BlackChancery" size="38.0" />
          </font>
       </Label>
-      <Label fx:id="exitButton" layoutX="235.0" layoutY="468.0" onMouseClicked="#exit" onMouseEntered="#exitButtonHover" onMouseExited="#exitButtonHoverOff" text="Exit" textFill="#57240f">
+      <Label fx:id="exitButton" layoutX="229.0" layoutY="493.0" onMouseClicked="#exit" onMouseEntered="#exitButtonHover" onMouseExited="#exitButtonHoverOff" text="Exit" textFill="#57240f">
          <font>
             <Font name="BlackChancery" size="36.0" />
          </font>
