@@ -17,7 +17,6 @@ import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 public class NameController {
-
     private GameState gm = GameState.getInstance();
     @FXML
     private AnchorPane ap;
@@ -50,23 +49,12 @@ public class NameController {
         cr.loadDeck(playerTwo);
         playerOne.drawStartingHand();
         playerTwo.drawStartingHand();
-        Parent root = FXMLLoader.load(getClass().getResource("battleScreen.fxml"));
-        Stage stage = (Stage) ap.getScene().getWindow();
-        stage.setScene(new Scene(root,1280,720));
-
-        /*for (int i=0;i<playerOne.getHand().getCardsInHand().size();i++){
-            ImageView card = new ImageView();
-            card.setImage(new Image(playerOne.getHand().getCardsInHand().get(i).getUrl()));
-            playerOneHand.getChildren().addAll(card);
-        }
-
-
-        for (int i=0;i<playerTwo.getHand().getCardsInHand().size();i++){
-            ImageView card = new ImageView(new Image(playerTwo.getHand().getCardsInHand().get(i).getUrl()));
-            playerTwoHand.getChildren().add(card);
-        }*/
 
         gm.setPlayerOne(playerOne);
         gm.setPlayerTwo(playerTwo);
+
+        Parent root = FXMLLoader.load(getClass().getResource("battleScreen.fxml"));
+        Stage stage = (Stage) ap.getScene().getWindow();
+        stage.setScene(new Scene(root,1280,720));
     }
 }
