@@ -48,6 +48,12 @@ public class Player {
         active = !active;
     }
 
+    public void drawAfterTurn(){
+        for (int i = 0; i < 5-hand.getCardsInHand().size(); i++) {
+            draw();
+        }
+    }
+
     public boolean draw(){
         if (deck.getCardList().size()==0) {
             return false;
@@ -60,7 +66,7 @@ public class Player {
     }
 
     public void drawStartingHand(){
-        for (int i = 0; i < 5 ; i++) {
+        for (int i = 0; i < 5; i++) {
             draw();
         }
     }

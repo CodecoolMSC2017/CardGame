@@ -19,5 +19,8 @@ public class Hand {
         Card tmpCard = random.getRandomCard(cardsInHand);
         cardsInHand.remove(tmpCard);
     }
+    public Card getRandomCard(){
+        return random.getRandomCard(cardsInHand);
+    }
 
 }
