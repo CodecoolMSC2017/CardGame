@@ -105,8 +105,14 @@ public class BattleController {
                     sd.setSpread(0.3);
                     sd.setHeight(50);
                     sd.setWidth(50);
+                    if(card.getEffect()!=null){
+                        card.setEffect(null);
+                    }else{
+                        card.setEffect(sd);
+                    }
 
-                    card.setEffect(sd);
+
+
                 }
 
             }
