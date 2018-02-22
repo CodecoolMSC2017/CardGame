@@ -87,12 +87,11 @@ public class Game implements Serializable{
 
             if (choice==0) {
                 break;
-            }else if (choice<player.getHand().getCardsInHand().size() && choice > 0) {
+            }else if (choice<=player.getHand().getCardsInHand().size() && choice > 0) {
                 player.playFromHand(choice-1);
             }
         }
     }
-
 
     //initiate at most 2 battles. See more in Battle.java.
     //if opponent has no card left in deck after fame battle, he loses.

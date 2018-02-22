@@ -87,7 +87,7 @@ public class Battle {
                 }
                 System.out.println("His total strength is: " + Integer.toString(attackPower));
                 System.out.println("\nPlease select a defender, X to cancel or hit Enter to finish selection");
-                System.out.println("Your have declared following efenders so far: ");
+                System.out.println("Your have declared following defenders so far: ");
                 for (int i = 0; i < defenders.size(); i++) {
                     System.out.print("|" + opponent.getBoard().getOnBoard().get(attackers.get(i)).getName() + "|\t");
                 }
@@ -128,13 +128,13 @@ public class Battle {
         //in case of tie or defenders win nothing happens.
 
         if (attackPower > defenderPower) {
-            if (choice.equals("m")) {
+            if (choice.equals("military")) {
                 try {
                     opponent.getBoard().destroyCard();
                 } catch (NoUnitAvailableException e) {
                     sc.nextLine();
                 }
-            } else if (choice.equals("i")) {
+            } else if (choice.equals("intrique")) {
                 for (int i = 0; i < 2; i++) {
                     opponent.getHand().discard();
                 }
