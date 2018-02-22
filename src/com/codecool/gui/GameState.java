@@ -9,6 +9,7 @@ public class GameState {
     private Player playerTwo;
     private Stage stage;
     private Parent root;
+    private String phase="";
 
     /*private static GameState ourInstance = new GameState();
 
