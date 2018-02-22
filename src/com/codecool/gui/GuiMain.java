@@ -12,18 +12,15 @@ import javafx.stage.Stage;
 import java.awt.*;
 
 public class GuiMain extends Application {
+    public GameState gm;
 
     public void start(Stage primaryStage) throws Exception{
-        Stage stage=primaryStage;
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        double screenWidth = screenSize.getWidth();
-        double screenHeight = screenSize.getHeight();
-
+        gm = GameState.getInstance();
         Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
-        stage.setTitle("Medieval Warfare");
-        stage.setScene(new Scene(root, 1280, 720));
-        stage.setResizable(false);
-        stage.show();
+        primaryStage.setTitle("Medieval Warfare");
+        primaryStage.setScene(new Scene(root, 1280, 720));
+        primaryStage.setResizable(false);
+        primaryStage.show();
     }
 
 

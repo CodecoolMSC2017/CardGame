@@ -45,7 +45,6 @@ public class MainController {
     public void enterOptions()throws Exception{
         root = FXMLLoader.load(getClass().getResource("optionsScreen.fxml"));
         Stage stage = (Stage) ap.getScene().getWindow();
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         stage.setScene(new Scene(root,1280, 720));
     }
 
@@ -57,7 +56,6 @@ public class MainController {
         Thread.sleep(3000);
         root = FXMLLoader.load(getClass().getResource("playerNameScreen.fxml"));
         Stage stage = (Stage) ap.getScene().getWindow();
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         stage.setScene(new Scene(root,1280, 720));
     }
 
@@ -109,21 +107,8 @@ public class MainController {
         optionsButton.setScaleY(1);
     }
 
-/*    public void confirmButtonHover(){
-        AudioClip mApplause = new AudioClip(this.getClass().getResource("../../../sound/hoverSound.wav").toExternalForm());
-        mApplause.play();
-        confirmButton.setScaleX(1.1);
-        confirmButton.setScaleY(1.1);
 
-    }
-
-    public void confirmButtonHoverOff(){
-        confirmButton.setScaleX(1);
-        confirmButton.setScaleY(1);
-    }
-
-
-    public void onBoardHover(){
+/*    public void onBoardHover(){
         tmpImg = new ImageView();
         ImageView[] cardsOnBoard = {onBoardOne,onBoardTwo,onBoardThree,onBoardFour,onBoardFive,onBoardSix,onBoardSeven};
 
