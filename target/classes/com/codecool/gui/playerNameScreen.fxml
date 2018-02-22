@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="ap" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.gui.NameController">
+   <children>
+      <ImageView fitHeight="730.0" fitWidth="1292.0" layoutY="-6.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../images/others/background.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="playerOneName" layoutX="516.0" layoutY="246.0" promptText="Enter your name">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="playerTwoName" layoutX="516.0" layoutY="394.0" promptText="Enter your name">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <Label layoutX="512.0" layoutY="146.0" text="Player one" textFill="WHITE">
+         <font>
+            <Font name="BlackChancery" size="53.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX" height="18.04" radius="7.7775" spread="0.5" width="15.07" />
+         </effect>
+      </Label>
+      <Label layoutX="508.0" layoutY="296.0" text="Player two" textFill="WHITE">
+         <font>
+            <Font name="BlackChancery" size="53.0" />
+         </font>
+         <effect>
+            <DropShadow height="23.97" radius="12.225" spread="0.5" width="26.93" />
+         </effect></Label>
+      <ImageView fx:id="confirmButton" fitHeight="60.0" fitWidth="155.0" layoutX="551.0" layoutY="481.0" onMouseClicked="#confirmButton" onMouseEntered="#confirmButtonHover" onMouseExited="#confirmButtonHoverOff" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/others/confirmButton.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

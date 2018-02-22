@@ -7,6 +7,8 @@ public class GameState {
     private Player playerOne;
     private Player playerTwo;
     private Stage stage;
+    private String phase="";
+
 
     private static GameState ourInstance = null;
 
