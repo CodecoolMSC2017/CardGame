@@ -1,12 +1,11 @@
 package com.codecool.game;
 
+import com.codecool.gui.GuiMain;
 import com.codecool.network.Client;
 import com.codecool.network.Host;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-import static com.codecool.gui.GuiMain.guimain;
 
 public class Main {
 
@@ -17,7 +16,8 @@ public class Main {
         String choice = sc.nextLine().toLowerCase();
 
         if (choice.equals("y")) {
-            guimain();
+            GuiMain gui = new GuiMain();
+            gui.guimain();
         } else {
 
             // for testing
