@@ -64,6 +64,9 @@ public class BattleController {
     private DropShadow sh = new DropShadow();
 
     public void initialize() {
+        for (Player player : gm.getPlayers()) {
+            System.out.println(player.getName());
+        }
 
         sh.setWidth(50);
         sh.setHeight(50);
@@ -410,6 +413,7 @@ public class BattleController {
                         getInactivePlayer().getDeck().mill();
                     }
                 }
+                playerTwoDeckSize.setText(Integer.toString(getInactivePlayer().getDeck().getCardList().size()));
                 return getActivePlayer();
             }
             return getInactivePlayer();
@@ -450,7 +454,7 @@ public class BattleController {
     private Player getInactivePlayer() {
         Player inactivePlayer = null;
         for (Player player : gm.getPlayers()) {
-            if (player.isActive()) {
+            if (!player.isActive()) {
                 inactivePlayer = player;
             }
         }
