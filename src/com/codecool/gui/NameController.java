@@ -16,6 +16,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
+import java.util.Random;
+
 public class NameController {
     private GameState gm = GameState.getInstance();
 
@@ -43,10 +45,19 @@ public class NameController {
     }
 
     public void confirmButton()throws Exception{
+        Random random = new Random();
+
         Player playerOne = new Player(playerOneName.getText());
         Player playerTwo = new Player(playerTwoName.getText());
-        gm.setPlayerOne(playerOne);
-        gm.setPlayerTwo(playerTwo);
+
+        if (random.nextBoolean()) {
+            playerOne.setActive();
+        }else{
+            playerTwo.setActive();
+        }
+
+        gm.addToPlayers(playerOne);
+        gm.getPlayers().add(playerTwo);
 
         CardReader cr = new CardReader();
         cr.loadDeck(playerOne);

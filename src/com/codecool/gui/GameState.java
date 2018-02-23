@@ -8,68 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameState {
+    private List<Player> players = new ArrayList<>();
     private Player playerOne;
     private Player playerTwo;
-    private Stage stage;
-    private boolean military,pride,intrique;
-    private boolean recruit = true;
     private List<Card> selectedCards = new ArrayList<>();
     private List<Card> enemySelected = new ArrayList<>();
-
-    public void addToSelected(Card card){
-        selectedCards.add(card);
-    }
-
-    public void removeFromSelected(Card card){
-        selectedCards.remove(card);
-    }
-
-    public void addToEnemySelected(Card card){
-        enemySelected.add(card);
-    }
-
-    public void setMilitary(boolean military) {
-        this.military = military;
-    }
-
-    public void setPride(boolean pride) {
-        this.pride = pride;
-    }
-
-    public void setIntrique(boolean intrique) {
-        this.intrique = intrique;
-    }
-
-    public void setRecruit(boolean recruit) {
-        this.recruit = recruit;
-    }
-
-    public boolean isMilitary() {
-        return military;
-    }
-
-    public boolean isPride() {
-        return pride;
-    }
-
-    public boolean isIntrique() {
-        return intrique;
-    }
-
-    public boolean isRecruit() {
-        return recruit;
-    }
-
-    public List<Card> getSelectedCards() {
-        return selectedCards;
-    }
-
-    public List<Card> getEnemySelected() {
-        return enemySelected;
-    }
-
-    private String phase="";
-
 
     private static GameState ourInstance = null;
 
@@ -80,7 +23,7 @@ public class GameState {
         return ourInstance;
     }
 
-    public GameState() {
+    private GameState() {
     }
 
     public String getPhase() {
@@ -107,21 +50,29 @@ public class GameState {
         this.playerTwo = playerTwo;
     }
 
-    public Stage getStage() {
-        return stage;
+    public void addToSelected(Card card){
+        selectedCards.add(card);
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void removeFromSelected(Card card){
+        selectedCards.remove(card);
     }
 
-    public static void setOurInstance(GameState ourInstance) {
-        GameState.ourInstance = ourInstance;
+    public List<Card> getSelectedCards() {
+        return selectedCards;
     }
 
-    /*public static GameState getOurInstance() {
-        return ourInstance;
-    }*/
+    public List<Card> getEnemySelected() {
+        return enemySelected;
+    }
 
+    private String phase="";
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void addToPlayers(Player player) {
+        players.add(player);
+    }
 }

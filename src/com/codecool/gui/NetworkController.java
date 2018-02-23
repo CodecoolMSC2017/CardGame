@@ -2,13 +2,18 @@ package com.codecool.gui;
 
 import com.codecool.network.Host;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class NetworkController {
+    private Parent root;
     private Host server;
     private String message;
     @FXML
@@ -23,6 +28,8 @@ public class NetworkController {
     TextArea serverInfo;
     @FXML
     TextField serverAddress;
+    @FXML
+    Button back;
 
     @FXML
     private void createServer() {
@@ -38,5 +45,12 @@ public class NetworkController {
     @FXML
     private void joinServer() {
 
+    }
+
+    @FXML
+    private void backToMain() throws Exception {
+        root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
+        Stage stage = (Stage) ap.getScene().getWindow();
+        stage.setScene(new Scene(root,1280, 720));
     }
 }

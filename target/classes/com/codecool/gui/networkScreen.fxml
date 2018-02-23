@@ -16,8 +16,9 @@
         </ImageView>
         <Button fx:id="newServer" layoutX="513.0" layoutY="180.0" mnemonicParsing="false" onMouseClicked="#createServer" text="Create Server" textAlignment="CENTER" />
         <TextArea fx:id="serverInfo" layoutX="330.0" layoutY="226.0" prefHeight="104.0" prefWidth="476.0" />
-        <TextField fx:id="serverAddress" layoutX="471.0" layoutY="450.0" />
-        <Button layoutX="512.0" layoutY="491.0" mnemonicParsing="false" onMouseClicked="#joinServer" text="Join Server" />
+        <TextField fx:id="serverAddress" layoutX="482.0" layoutY="449.0" />
+        <Button layoutX="523.0" layoutY="489.0" mnemonicParsing="false" onMouseClicked="#joinServer" text="Join Server" />
+      <Button fx:id="return" layoutX="517.0" layoutY="545.0" mnemonicParsing="false" onMouseClicked="#backToMain" text="Back to Main" textAlignment="CENTER" />
 
     </children>
 </AnchorPane>
