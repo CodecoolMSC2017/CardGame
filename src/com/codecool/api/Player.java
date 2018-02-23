@@ -28,18 +28,6 @@ public class Player {
         return name;
     }
 
-    public void setDeck(Deck deck) {
-        this.deck = deck;
-    }
-
-    public void setHand(Hand hand) {
-        this.hand = hand;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
     public boolean isActive() {
         return active;
     }
@@ -48,10 +36,12 @@ public class Player {
         active = !active;
     }
 
-    public void drawAfterTurn(){
+    public boolean drawAfterTurn(){
+        boolean deckHasCards = true;
         for (int i = 0; i < 5-hand.getCardsInHand().size(); i++) {
-            draw();
+            deckHasCards = draw();
         }
+        return deckHasCards;
     }
 
     public boolean draw(){

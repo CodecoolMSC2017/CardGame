@@ -50,5 +50,20 @@
       <Button fx:id="intriquePhaseButton" layoutX="38.0" layoutY="633.0" mnemonicParsing="false" onAction="#setIntriquePhase" text="Intrique" />
       <Button fx:id="famePhaseButton" layoutX="46.0" layoutY="674.0" mnemonicParsing="false" onAction="#setFamePhase" text="fame" />
       <Button layoutX="38.0" layoutY="542.0" mnemonicParsing="false" onAction="#printResult" text="Send" />
+      <Label fx:id="nameFieldTwo" contentDisplay="CENTER" layoutX="968.0" layoutY="154.0" prefHeight="53.0" prefWidth="223.0" text="Name2" textFill="#e10000">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="nameFieldOne" contentDisplay="CENTER" layoutX="121.0" layoutY="526.0" prefHeight="53.0" prefWidth="223.0" text="Name1" textFill="#e10000">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="playerTwoDeckSize" layoutX="43.0" layoutY="64.0" text="15" textFill="WHITE">
+         <font>
+            <Font name="BlackChancery" size="43.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
