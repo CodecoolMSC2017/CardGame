@@ -77,25 +77,13 @@ public class BattleController {
         nameFieldOne.setText(activePlayer.getName());
         nameFieldTwo.setText(inactivePlayer.getName());
 
-        for (int i = 0; i < activePlayer.getHand().getCardsInHand().size(); i++) {
-            ImageView card = new ImageView();
-            card.setFitWidth(115);
-            card.setFitHeight(150);
-            addHoverEvent(card);
-            addHoverOffEvent(card);
-            card.setImage(new Image(getActivePlayer().getHand().getCardsInHand().get(i).getUrl()));
-            playerOneHand.getChildren().addAll(card);
+        if (activePlayer.getBoard().getOnBoard().size() > 0 || inactivePlayer.getBoard().getOnBoard().size() > 0) {
+            boardWipe();
+            boardFill();
         }
 
-        for (int i = 0; i < inactivePlayer.getHand().getCardsInHand().size(); i++) {
-            ImageView card = new ImageView(new Image(getInactivePlayer().getHand().getCardsInHand().get(i).getUrl()));
-            card.setFitWidth(115);
-            card.setFitHeight(150);
-            card.setRotate(180);
-            addHoverEvent(card);
-            addHoverOffEvent(card);
-            playerTwoHand.getChildren().add(card);
-        }
+        handFill();
+
         playerOneDeckSize.setText(Integer.toString(getActivePlayer().getDeck().getCardList().size()));
         playerTwoDeckSize.setText(Integer.toString(inactivePlayer.getDeck().getCardList().size()));
         recruitPhase();
@@ -117,11 +105,14 @@ public class BattleController {
         }
     }
 
+    @FXML
     private void drawToFive() {
         battle.setEffect(null);
         endStep.setEffect(sh);
         int remainedCards = getActivePlayer().getHand().getCardsInHand().size();
         boolean deckHasCards = getActivePlayer().drawAfterTurn();
+        System.out.println(getActivePlayer().getHand().getCardsInHand().size());
+        System.out.println(getInactivePlayer().getHand().getCardsInHand().size());
         if (!deckHasCards) {
             try {
                 lose();
@@ -129,7 +120,8 @@ public class BattleController {
                 e.printStackTrace();
             }
         } else {
-            for (int i = remainedCards; i < 5; i++) {
+            playerOneHand.setDisable(false);
+            for (int i = remainedCards+1; i < 5; i++) {
                 ImageView card = new ImageView();
                 card.setFitWidth(115);
                 card.setFitHeight(150);
@@ -147,7 +139,6 @@ public class BattleController {
                 }
             }
             battlesStarted = 0;
-            playerOneHand.setDisable(false);
             changeTurn();
         }
     }
@@ -242,7 +233,6 @@ public class BattleController {
     }
 
 
-    @FXML
     private void changeTurn(){
         Player activePlayer = getActivePlayer();
         Player inactivePlayer = getInactivePlayer();
@@ -263,8 +253,6 @@ public class BattleController {
 
 
 
-
-
     //Graphics Stuff
     private void addHoverEvent(ImageView card) {
         card.setOnMouseEntered(new EventHandler<javafx.scene.input.MouseEvent>() {
@@ -272,7 +260,6 @@ public class BattleController {
             public void handle(javafx.scene.input.MouseEvent event) {
                 handHover();
             }
-
         });
     }
 
@@ -327,6 +314,60 @@ public class BattleController {
 
         tt.play();
         st.play();
+    }
+
+
+    private void boardWipe() {
+        playerOneBoard.getChildren().clear();
+        playerTwoBoard.getChildren().clear();
+        playerOneHand.getChildren().clear();
+        playerTwoHand.getChildren().clear();
+    }
+
+
+    private void boardFill() {
+        for (int i = 0; i < getActivePlayer().getBoard().getOnBoard().size(); i++) {
+            ImageView card = new ImageView();
+            card.setFitWidth(115);
+            card.setFitHeight(150);
+            addHoverEvent(card);
+            addHoverOffEvent(card);
+            card.setImage(new Image(getActivePlayer().getBoard().getOnBoard().get(i).getUrl()));
+            playerOneBoard.getChildren().addAll(card);
+        }
+
+        for (int i = 0; i < getInactivePlayer().getBoard().getOnBoard().size(); i++) {
+            ImageView card = new ImageView(new Image(getInactivePlayer().getBoard().getOnBoard().get(i).getUrl()));
+            card.setFitWidth(115);
+            card.setFitHeight(150);
+            card.setRotate(180);
+            addHoverEvent(card);
+            addHoverOffEvent(card);
+            playerTwoBoard.getChildren().add(card);
+        }
+    }
+
+
+    private void handFill() {
+        for (int i = 0; i < getActivePlayer().getHand().getCardsInHand().size(); i++) {
+            ImageView card = new ImageView();
+            card.setFitWidth(115);
+            card.setFitHeight(150);
+            addHoverEvent(card);
+            addHoverOffEvent(card);
+            card.setImage(new Image(getActivePlayer().getHand().getCardsInHand().get(i).getUrl()));
+            playerOneHand.getChildren().addAll(card);
+        }
+
+        for (int i = 0; i < getInactivePlayer().getHand().getCardsInHand().size(); i++) {
+            ImageView card = new ImageView(new Image(getInactivePlayer().getHand().getCardsInHand().get(i).getUrl()));
+            card.setFitWidth(115);
+            card.setFitHeight(150);
+            card.setRotate(180);
+            addHoverEvent(card);
+            addHoverOffEvent(card);
+            playerTwoHand.getChildren().add(card);
+        }
     }
 
 
@@ -424,7 +465,6 @@ public class BattleController {
 
 
     private ImageView getImageViewByCard(Card card, FlowPane hand) {
-
         for (int i = 0; i < hand.getChildren().size(); i++) {
             ImageView tmp = (ImageView) hand.getChildren().get(i);
 
