@@ -26,6 +26,7 @@ import javafx.util.Duration;
 
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.List;
 
 public class BattleController {
 
@@ -86,6 +87,11 @@ public class BattleController {
 
         playerOneDeckSize.setText(Integer.toString(getActivePlayer().getDeck().getCardList().size()));
         playerTwoDeckSize.setText(Integer.toString(inactivePlayer.getDeck().getCardList().size()));
+        for(Card c : getActivePlayer().getBoard().getOnBoard()){
+            if (c.isState()==false){
+                c.setState();
+            }
+        }
         recruitPhase();
     }
 
@@ -111,14 +117,21 @@ public class BattleController {
         endStep.setEffect(sh);
         int remainedCards = getActivePlayer().getHand().getCardsInHand().size();
         boolean deckHasCards = getActivePlayer().drawAfterTurn();
-        System.out.println(getActivePlayer().getHand().getCardsInHand().size());
-        System.out.println(getInactivePlayer().getHand().getCardsInHand().size());
         if (!deckHasCards) {
-            try {
-                lose();
-            } catch (Exception e) {
-                e.printStackTrace();
+            if(getActivePlayer().getBoard().getOnBoard().size()<1 && getActivePlayer().getHand().getCardsInHand().size()<1){
+                try {
+                    lose();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else{
+                Alert noCardAlert = new Alert(Alert.AlertType.INFORMATION);
+                noCardAlert.setHeaderText("There are no cards to draw");
+                noCardAlert.showAndWait();
+                playerOneHand.setDisable(false);
+                changeTurn();
             }
+
         } else {
             playerOneHand.setDisable(false);
             for (int i = remainedCards+1; i < 5; i++) {
@@ -234,8 +247,13 @@ public class BattleController {
 
 
     private void changeTurn(){
+
         Player activePlayer = getActivePlayer();
         Player inactivePlayer = getInactivePlayer();
+        activePlayer.setActive();
+        inactivePlayer.setActive();
+        activePlayer = getActivePlayer();
+        inactivePlayer = getInactivePlayer();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Changing turn");
@@ -246,8 +264,7 @@ public class BattleController {
 
         endStep.setEffect(null);
 
-        activePlayer.setActive();
-        inactivePlayer.setActive();
+
         initialize();
     }
 
@@ -332,6 +349,7 @@ public class BattleController {
             card.setFitHeight(150);
             addHoverEvent(card);
             addHoverOffEvent(card);
+            addDeclarable(card);
             card.setImage(new Image(getActivePlayer().getBoard().getOnBoard().get(i).getUrl()));
             playerOneBoard.getChildren().addAll(card);
         }
@@ -343,6 +361,7 @@ public class BattleController {
             card.setRotate(180);
             addHoverEvent(card);
             addHoverOffEvent(card);
+            addDeclarable(card);
             playerTwoBoard.getChildren().add(card);
         }
     }
@@ -355,6 +374,7 @@ public class BattleController {
             card.setFitHeight(150);
             addHoverEvent(card);
             addHoverOffEvent(card);
+            addPlayable(card);
             card.setImage(new Image(getActivePlayer().getHand().getCardsInHand().get(i).getUrl()));
             playerOneHand.getChildren().addAll(card);
         }
@@ -366,6 +386,7 @@ public class BattleController {
             card.setRotate(180);
             addHoverEvent(card);
             addHoverOffEvent(card);
+            addPlayable(card);
             playerTwoHand.getChildren().add(card);
         }
     }
@@ -373,6 +394,7 @@ public class BattleController {
 
     //Helper methods
     public void printResult() {
+        String winnerName="";
         for (int k = 0; k < gm.getSelectedCards().size(); k++) {
             for (Node i : playerOneBoard.getChildren()) {
                 ImageView tmp = (ImageView) i;
@@ -383,13 +405,17 @@ public class BattleController {
                 if (url.equals(gm.getSelectedCards().get(k).getLink())) {
                     tmp.setEffect(null);
                     tmp.setRotate(90);
-                    gm.getSelectedCards().remove(tmp);
+                    winnerName=evaluate().getName();
+                    gm.getSelectedCards().remove(getCardByImageView(tmp,gm.getSelectedCards()));
+                    break;
+
                 }
             }
         }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(evaluate().getName() + " won the battle!");
+        alert.setHeaderText(winnerName + " won the phase!");
         alert.show();
+        playerTwoDeckSize.setText(Integer.toString(getInactivePlayer().getDeck().getCardList().size()));
         if (battlesStarted == 2) {
             drawToFive();
         }
@@ -398,7 +424,7 @@ public class BattleController {
 
     private Player evaluate() {
         int activePlayerStrength = 0;
-        int playerTwoPoint = 0;
+        int inactivePlayerStrength = 0;
         battlesStarted++;
         if (gm.getPhase().equals("military")) {
             militaryPhaseButton.setDisable(true);
@@ -407,12 +433,14 @@ public class BattleController {
                 c.setState();
             }
             for (Card cr : gm.getEnemySelected()) {
-                playerTwoPoint += cr.getMilitary();
+                inactivePlayerStrength += cr.getMilitary();
                 cr.setState();
             }
-            if (activePlayerStrength > playerTwoPoint) {
+            if (activePlayerStrength > inactivePlayerStrength) {
                 if (getInactivePlayer().getBoard().getOnBoard().size() > 0) {
-                    getInactivePlayer().getBoard().getOnBoard().remove(getInactivePlayer().getBoard().getRandomCard());
+                    Card tmpCard = getInactivePlayer().getBoard().getRandomCard();
+                    getInactivePlayer().getBoard().getOnBoard().remove(tmpCard);
+                    playerTwoBoard.getChildren().remove(getImageViewByCard(tmpCard,playerTwoBoard));
                 }
                 return getActivePlayer();
             }
@@ -424,10 +452,10 @@ public class BattleController {
                 c.setState();
             }
             for (Card cr : gm.getEnemySelected()) {
-                playerTwoPoint += cr.getIntrique();
+                inactivePlayerStrength += cr.getIntrique();
                 cr.setState();
             }
-            if (activePlayerStrength > playerTwoPoint) {
+            if (activePlayerStrength > inactivePlayerStrength) {
                 for (int i = 0; i < 2; i++) {
                     if (getInactivePlayer().getHand().getCardsInHand().size() != 0) {
                         Card tmpCard = getInactivePlayer().getHand().getRandomCard();
@@ -445,12 +473,12 @@ public class BattleController {
                 c.setState();
             }
             for (Card cr : gm.getEnemySelected()) {
-                playerTwoPoint += cr.getFame();
+                inactivePlayerStrength += cr.getFame();
                 cr.setState();
             }
-            if (activePlayerStrength > playerTwoPoint) {
+            if (activePlayerStrength > inactivePlayerStrength) {
                 for (int i = 0; i < 3; i++) {
-                    if (getInactivePlayer().getDeck().getCardList().size() != 0) {
+                    if (getInactivePlayer().getDeck().getCardList().size() > 0) {
                         getInactivePlayer().getDeck().mill();
                     }
                 }
@@ -475,6 +503,19 @@ public class BattleController {
 
             if (card.getLink().equals(url)) {
                 return tmp;
+            }
+        }
+        return null;
+    }
+
+    private Card getCardByImageView(ImageView img, List<Card> cardList){
+        String[] path = img.getImage().getUrl().split("/");
+        String url = "";
+        url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
+
+        for (int i = 0; i <cardList.size() ; i++) {
+            if(url.equals(cardList.get(i).getLink())){
+                return cardList.get(i);
             }
         }
         return null;

@@ -50,14 +50,10 @@ public class NameController {
         Player playerOne = new Player(playerOneName.getText());
         Player playerTwo = new Player(playerTwoName.getText());
 
-        if (random.nextBoolean()) {
-            playerOne.setActive();
-        }else{
-            playerTwo.setActive();
-        }
+        playerOne.setActive();
 
         gm.addToPlayers(playerOne);
-        gm.getPlayers().add(playerTwo);
+        gm.addToPlayers(playerTwo);
 
         CardReader cr = new CardReader();
         cr.loadDeck(playerOne);
