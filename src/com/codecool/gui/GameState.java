@@ -11,8 +11,8 @@ public class GameState {
     private List<Player> players = new ArrayList<>();
     private Player playerOne;
     private Player playerTwo;
-    private List<Card> selectedCards = new ArrayList<>();
-    private List<Card> enemySelected = new ArrayList<>();
+    private List<Card> attackers = new ArrayList<>();
+    private List<Card> defenders = new ArrayList<>();
 
     private static GameState ourInstance = null;
 
@@ -50,21 +50,27 @@ public class GameState {
         this.playerTwo = playerTwo;
     }
 
-    public void addToSelected(Card card){
-        selectedCards.add(card);
+    public void addToAttackers(Card card){
+        attackers.add(card);
     }
 
-    public void removeFromSelected(Card card){
-        selectedCards.remove(card);
+    public void removeFromAttackers(Card card){
+        attackers.remove(card);
     }
 
-    public List<Card> getSelectedCards() {
-        return selectedCards;
+    public List<Card> getAttackers() {
+        return attackers;
     }
 
-    public List<Card> getEnemySelected() {
-        return enemySelected;
+    public List<Card> getDefenders() {
+        return defenders;
     }
+
+    public void addToDefenders(Card card){
+        defenders.add(card);
+    }
+
+    public void removeFromDefenders(Card card) { defenders.remove(card); }
 
     private String phase="";
 

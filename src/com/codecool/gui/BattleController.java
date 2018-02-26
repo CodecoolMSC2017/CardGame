@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -33,6 +34,10 @@ public class BattleController {
     private GameState gm = GameState.getInstance();
     private int recruited = 0;
     private int battlesStarted = 0;
+    private Player activePlayer;
+    private Player inactivePlayer;
+    @FXML
+    AnchorPane ap;
     @FXML
     FlowPane playerOneHand;
     @FXML
@@ -61,20 +66,18 @@ public class BattleController {
     Label nameFieldOne;
     @FXML
     Label nameFieldTwo;
+    @FXML
+    Button defense;
     private ImageView tmpImg;
     private DropShadow sh = new DropShadow();
 
     public void initialize() {
-        for (Player player : gm.getPlayers()) {
-            System.out.println(player.getName());
-        }
-
         sh.setWidth(50);
         sh.setHeight(50);
         sh.setColor(Color.RED);
         recruit.setEffect(sh);
-        Player activePlayer = getActivePlayer();
-        Player inactivePlayer = getInactivePlayer();
+        activePlayer = getActivePlayer();
+        inactivePlayer = getInactivePlayer();
         nameFieldOne.setText(activePlayer.getName());
         nameFieldTwo.setText(inactivePlayer.getName());
 
@@ -87,8 +90,8 @@ public class BattleController {
 
         playerOneDeckSize.setText(Integer.toString(getActivePlayer().getDeck().getCardList().size()));
         playerTwoDeckSize.setText(Integer.toString(inactivePlayer.getDeck().getCardList().size()));
-        for(Card c : getActivePlayer().getBoard().getOnBoard()){
-            if (c.isState()==false){
+        for (Card c : getActivePlayer().getBoard().getOnBoard()) {
+            if (!c.isState()) {
                 c.setState();
             }
         }
@@ -111,20 +114,32 @@ public class BattleController {
         }
     }
 
+
+    private void declareBlockers() {
+        defense.setText("Selection done");
+        defense.setVisible(true);
+        defense.setDisable(false);
+        for (Node node : playerTwoBoard.getChildren()) {
+            ImageView card = (ImageView) node;
+            addBlockable(card);
+        }
+    }
+
+
     @FXML
     private void drawToFive() {
         battle.setEffect(null);
         endStep.setEffect(sh);
-        int remainedCards = getActivePlayer().getHand().getCardsInHand().size();
-        boolean deckHasCards = getActivePlayer().drawAfterTurn();
+        int remainedCards = activePlayer.getHand().getCardsInHand().size();
+        boolean deckHasCards = activePlayer.drawAfterTurn();
         if (!deckHasCards) {
-            if(getActivePlayer().getBoard().getOnBoard().size()<1 && getActivePlayer().getHand().getCardsInHand().size()<1){
+            if (getActivePlayer().getBoard().getOnBoard().size() < 1 && getActivePlayer().getHand().getCardsInHand().size() < 1) {
                 try {
                     lose();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 Alert noCardAlert = new Alert(Alert.AlertType.INFORMATION);
                 noCardAlert.setHeaderText("There are no cards to draw");
                 noCardAlert.showAndWait();
@@ -134,18 +149,18 @@ public class BattleController {
 
         } else {
             playerOneHand.setDisable(false);
-            for (int i = remainedCards+1; i < 5; i++) {
+            for (int i = remainedCards + 1; i < 5; i++) {
                 ImageView card = new ImageView();
                 card.setFitWidth(115);
                 card.setFitHeight(150);
                 addHoverEvent(card);
                 addHoverOffEvent(card);
                 addPlayable(card);
-                card.setImage(new Image(getActivePlayer().getHand().getCardsInHand().get(i).getUrl()));
+                card.setImage(new Image(activePlayer.getHand().getCardsInHand().get(i).getUrl()));
                 playerOneHand.getChildren().addAll(card);
             }
-            playerOneDeckSize.setText(Integer.toString(getActivePlayer().getDeck().getCardList().size()));
-            for (Card c : getActivePlayer().getBoard().getOnBoard()) {
+            playerOneDeckSize.setText(Integer.toString(activePlayer.getDeck().getCardList().size()));
+            for (Card c : activePlayer.getBoard().getOnBoard()) {
                 if (!c.isState()) {
                     c.setState();
                     getImageViewByCard(c, playerOneBoard).setRotate(270);
@@ -157,6 +172,111 @@ public class BattleController {
     }
 
 
+    private void changeTurn() {
+
+        activePlayer.setActive();
+        inactivePlayer.setActive();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Changing turn");
+        alert.showAndWait();
+        militaryPhaseButton.setDisable(false);
+        intriquePhaseButton.setDisable(false);
+        famePhaseButton.setDisable(false);
+
+        endStep.setEffect(null);
+
+        initialize();
+    }
+
+
+    private void lose() throws Exception {
+        Alert loseAlert = new Alert(Alert.AlertType.INFORMATION);
+        loseAlert.setHeaderText("You Lost");
+        loseAlert.showAndWait();
+
+        Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
+        Stage mainS = new Stage();
+        mainS.setScene(new Scene(root, 1280, 720));
+        mainS.show();
+    }
+
+
+
+
+    //*************************************
+    //Board and Hand Wipes and Re-Creations
+    //*************************************
+
+    private void boardWipe() {
+        playerOneBoard.getChildren().clear();
+        playerTwoBoard.getChildren().clear();
+        playerOneHand.getChildren().clear();
+        playerTwoHand.getChildren().clear();
+    }
+
+
+    private void boardFill() {
+        for (int i = 0; i < activePlayer.getBoard().getOnBoard().size(); i++) {
+            ImageView card = new ImageView();
+            card.setFitWidth(115);
+            card.setFitHeight(150);
+            addHoverEvent(card);
+            addHoverOffEvent(card);
+            addDeclarable(card);
+            card.setImage(new Image(activePlayer.getBoard().getOnBoard().get(i).getUrl()));
+            playerOneBoard.getChildren().add(card);
+        }
+
+        for (int i = 0; i < inactivePlayer.getBoard().getOnBoard().size(); i++) {
+            ImageView card = new ImageView(new Image(inactivePlayer.getBoard().getOnBoard().get(i).getUrl()));
+            card.setFitWidth(115);
+            card.setFitHeight(150);
+            if (inactivePlayer.getBoard().getOnBoard().get(i).isState()) {
+                card.setRotate(180);
+            } else {
+                card.setRotate(270);
+            }
+            addHoverEvent(card);
+            addHoverOffEvent(card);
+            addDeclarable(card);
+            playerTwoBoard.getChildren().add(card);
+        }
+    }
+
+
+    private void handFill() {
+        for (int i = 0; i < activePlayer.getHand().getCardsInHand().size(); i++) {
+            ImageView card = new ImageView();
+            card.setFitWidth(115);
+            card.setFitHeight(150);
+            addHoverEvent(card);
+            addHoverOffEvent(card);
+            addPlayable(card);
+            card.setImage(new Image(activePlayer.getHand().getCardsInHand().get(i).getUrl()));
+            playerOneHand.getChildren().addAll(card);
+        }
+
+        for (int i = 0; i < inactivePlayer.getHand().getCardsInHand().size(); i++) {
+            ImageView card = new ImageView(new Image(inactivePlayer.getHand().getCardsInHand().get(i).getUrl()));
+            card.setFitWidth(115);
+            card.setFitHeight(150);
+            card.setRotate(180);
+            addHoverEvent(card);
+            addHoverOffEvent(card);
+            addPlayable(card);
+            playerTwoHand.getChildren().add(card);
+        }
+    }
+
+
+
+
+    //**************************
+    //Game Events, Board changes
+    //**************************
+
+
     private void addPlayable(ImageView card) {
         card.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
@@ -166,9 +286,9 @@ public class BattleController {
                     String[] path = card.getImage().getUrl().split("/");
                     String url = "";
                     url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
-                    for (int i = 0; i < getActivePlayer().getHand().getCardsInHand().size(); i++) {
-                        if (getActivePlayer().getHand().getCardsInHand().get(i).getLink().equals(url)) {
-                            getActivePlayer().playFromHand(i);
+                    for (int i = 0; i < activePlayer.getHand().getCardsInHand().size(); i++) {
+                        if (activePlayer.getHand().getCardsInHand().get(i).getLink().equals(url)) {
+                            activePlayer.playFromHand(i);
                         }
                     }
                     recruited++;
@@ -203,9 +323,9 @@ public class BattleController {
                     String[] path = card.getImage().getUrl().split("/");
                     String url = "";
                     url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
-                    for (int l = 0; l < getActivePlayer().getBoard().getOnBoard().size(); l++) {
-                        if (url.equals(getActivePlayer().getBoard().getOnBoard().get(l).getLink())) {
-                            gm.removeFromSelected(getActivePlayer().getBoard().getOnBoard().get(l));
+                    for (int l = 0; l < activePlayer.getBoard().getOnBoard().size(); l++) {
+                        if (url.equals(activePlayer.getBoard().getOnBoard().get(l).getLink())) {
+                            gm.removeFromAttackers(activePlayer.getBoard().getOnBoard().get(l));
                             break;
                         }
                     }
@@ -214,10 +334,10 @@ public class BattleController {
                     String[] path = card.getImage().getUrl().split("/");
                     String url = "";
                     url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
-                    for (int l = 0; l < getActivePlayer().getBoard().getOnBoard().size(); l++) {
-                        if (url.equals(getActivePlayer().getBoard().getOnBoard().get(l).getLink())) {
-                            if (getActivePlayer().getBoard().getOnBoard().get(l).isState()) {
-                                gm.addToSelected(getActivePlayer().getBoard().getOnBoard().get(l));
+                    for (int l = 0; l < activePlayer.getBoard().getOnBoard().size(); l++) {
+                        if (url.equals(activePlayer.getBoard().getOnBoard().get(l).getLink())) {
+                            if (activePlayer.getBoard().getOnBoard().get(l).isState()) {
+                                gm.addToAttackers(activePlayer.getBoard().getOnBoard().get(l));
                                 card.setEffect(sd);
                             } else {
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -233,44 +353,222 @@ public class BattleController {
     }
 
 
-
-    private void lose() throws Exception {
-        Alert loseAlert = new Alert(Alert.AlertType.INFORMATION);
-        loseAlert.setHeaderText("You Lost");
-        loseAlert.showAndWait();
-
-        Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
-        Stage mainS = new Stage();
-        mainS.setScene(new Scene(root, 1280, 720));
-        mainS.show();
+    private void addBlockable(ImageView card) {
+        card.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                DropShadow sd = new DropShadow();
+                sd.setColor(Color.TEAL);
+                sd.setSpread(0.3);
+                sd.setHeight(50);
+                sd.setWidth(50);
+                if (card.getEffect() != null) {
+                    card.setEffect(null);
+                    String[] path = card.getImage().getUrl().split("/");
+                    String url = "";
+                    url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
+                    for (int l = 0; l < inactivePlayer.getBoard().getOnBoard().size(); l++) {
+                        if (url.equals(inactivePlayer.getBoard().getOnBoard().get(l).getLink())) {
+                            gm.removeFromDefenders(inactivePlayer.getBoard().getOnBoard().get(l));
+                            break;
+                        }
+                    }
+                } else {
+                    card.setEffect(sd);
+                    String[] path = card.getImage().getUrl().split("/");
+                    String url = "";
+                    url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
+                    for (int l = 0; l < inactivePlayer.getBoard().getOnBoard().size(); l++) {
+                        if (url.equals(inactivePlayer.getBoard().getOnBoard().get(l).getLink())) {
+                            if (inactivePlayer.getBoard().getOnBoard().get(l).isState()) {
+                                gm.addToDefenders(inactivePlayer.getBoard().getOnBoard().get(l));
+                                card.setEffect(sd);
+                            } else {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setHeaderText("That unit is Tired");
+                                alert.showAndWait();
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        });
     }
 
 
-    private void changeTurn(){
+    public void printResult() {
+        String winnerName = "";
+        for (int k = 0; k < gm.getAttackers().size(); k++) {
+            for (Node i : playerOneBoard.getChildren()) {
+                ImageView tmp = (ImageView) i;
+                String url = "";
+                url += tmp.getImage().getUrl().split("/")[tmp.getImage().getUrl().split("/").length - 3] + "/";
+                url += tmp.getImage().getUrl().split("/")[tmp.getImage().getUrl().split("/").length - 2] + "/";
+                url += tmp.getImage().getUrl().split("/")[tmp.getImage().getUrl().split("/").length - 1];
+                if (url.equals(gm.getAttackers().get(k).getLink())) {
+                    tmp.setEffect(null);
+                    tmp.setRotate(90);
+                    declareBlockers();
+                    gm.getAttackers().remove(getCardByImageView(tmp, gm.getAttackers()));
+                    break;
 
-        Player activePlayer = getActivePlayer();
-        Player inactivePlayer = getInactivePlayer();
-        activePlayer.setActive();
-        inactivePlayer.setActive();
-        activePlayer = getActivePlayer();
-        inactivePlayer = getInactivePlayer();
-
+                }
+            }
+        }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText("Changing turn");
-        alert.showAndWait();
-        militaryPhaseButton.setDisable(false);
-        intriquePhaseButton.setDisable(false);
-        famePhaseButton.setDisable(false);
+        alert.setHeaderText(winnerName + " won the phase!");
+        alert.show();
+        playerTwoDeckSize.setText(Integer.toString(inactivePlayer.getDeck().getCardList().size()));
+        if (battlesStarted == 2) {
+            drawToFive();
+        }
+    }
 
-        endStep.setEffect(null);
 
-
-        initialize();
+    @FXML
+    private Player evaluate() {
+        int activePlayerStrength = 0;
+        int inactivePlayerStrength = 0;
+        battlesStarted++;
+        if (gm.getPhase().equals("military")) {
+            militaryPhaseButton.setDisable(true);
+            for (Card c : gm.getAttackers()) {
+                activePlayerStrength += c.getMilitary();
+                c.setState();
+            }
+            for (Card cr : gm.getDefenders()) {
+                inactivePlayerStrength += cr.getMilitary();
+                cr.setState();
+            }
+            if (activePlayerStrength > inactivePlayerStrength) {
+                if (inactivePlayer.getBoard().getOnBoard().size() > 0) {
+                    Card tmpCard = inactivePlayer.getBoard().getRandomCard();
+                    inactivePlayer.getBoard().getOnBoard().remove(tmpCard);
+                    playerTwoBoard.getChildren().remove(getImageViewByCard(tmpCard, playerTwoBoard));
+                }
+                return activePlayer;
+            }
+            return inactivePlayer;
+        } else if (gm.getPhase().equals("intrique")) {
+            intriquePhaseButton.setDisable(true);
+            for (Card c : gm.getAttackers()) {
+                activePlayerStrength += c.getIntrique();
+                c.setState();
+            }
+            for (Card cr : gm.getDefenders()) {
+                inactivePlayerStrength += cr.getIntrique();
+                cr.setState();
+            }
+            if (activePlayerStrength > inactivePlayerStrength) {
+                for (int i = 0; i < 2; i++) {
+                    if (inactivePlayer.getHand().getCardsInHand().size() != 0) {
+                        Card tmpCard = inactivePlayer.getHand().getRandomCard();
+                        playerTwoHand.getChildren().remove(getImageViewByCard(tmpCard, playerTwoHand));
+                        inactivePlayer.getHand().discard();
+                    }
+                }
+                return activePlayer;
+            }
+            return inactivePlayer;
+        } else if (gm.getPhase().equals("fame")) {
+            famePhaseButton.setDisable(true);
+            for (Card c : gm.getAttackers()) {
+                activePlayerStrength += c.getFame();
+                c.setState();
+            }
+            for (Card cr : gm.getDefenders()) {
+                inactivePlayerStrength += cr.getFame();
+                cr.setState();
+            }
+            if (activePlayerStrength > inactivePlayerStrength) {
+                for (int i = 0; i < 3; i++) {
+                    if (inactivePlayer.getDeck().getCardList().size() > 0) {
+                        inactivePlayer.getDeck().mill();
+                    }
+                }
+                playerTwoDeckSize.setText(Integer.toString(inactivePlayer.getDeck().getCardList().size()));
+                return activePlayer;
+            }
+            return inactivePlayer;
+        }
+        return null;
     }
 
 
 
-    //Graphics Stuff
+    //*******************
+    //Getters and Setters
+    //*******************
+
+    private ImageView getImageViewByCard(Card card, FlowPane hand) {
+        for (int i = 0; i < hand.getChildren().size(); i++) {
+            ImageView tmp = (ImageView) hand.getChildren().get(i);
+
+            String[] path = tmp.getImage().getUrl().split("/");
+
+            String url = "";
+            url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
+
+            if (card.getLink().equals(url)) {
+                return tmp;
+            }
+        }
+        return null;
+    }
+
+    private Card getCardByImageView(ImageView img, List<Card> cardList) {
+        String[] path = img.getImage().getUrl().split("/");
+        String url = "";
+        url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
+
+        for (int i = 0; i < cardList.size(); i++) {
+            if (url.equals(cardList.get(i).getLink())) {
+                return cardList.get(i);
+            }
+        }
+        return null;
+    }
+
+
+    private Player getActivePlayer() {
+        Player activePlayer = null;
+        for (Player player : gm.getPlayers()) {
+            if (player.isActive()) {
+                activePlayer = player;
+            }
+        }
+        return activePlayer;
+    }
+
+    private Player getInactivePlayer() {
+        Player inactivePlayer = null;
+        for (Player player : gm.getPlayers()) {
+            if (!player.isActive()) {
+                inactivePlayer = player;
+            }
+        }
+        return inactivePlayer;
+    }
+
+    public void setMilitaryPhase() {
+        gm.setPhase("military");
+    }
+
+    public void setIntriquePhase() {
+        gm.setPhase("intrique");
+    }
+
+    public void setFamePhase() {
+        gm.setPhase("fame");
+    }
+
+
+
+    //************************************************
+    //Hover effects and possibly other optical tunings
+    //************************************************
+
     private void addHoverEvent(ImageView card) {
         card.setOnMouseEntered(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
@@ -331,226 +629,5 @@ public class BattleController {
 
         tt.play();
         st.play();
-    }
-
-
-    private void boardWipe() {
-        playerOneBoard.getChildren().clear();
-        playerTwoBoard.getChildren().clear();
-        playerOneHand.getChildren().clear();
-        playerTwoHand.getChildren().clear();
-    }
-
-
-    private void boardFill() {
-        for (int i = 0; i < getActivePlayer().getBoard().getOnBoard().size(); i++) {
-            ImageView card = new ImageView();
-            card.setFitWidth(115);
-            card.setFitHeight(150);
-            addHoverEvent(card);
-            addHoverOffEvent(card);
-            addDeclarable(card);
-            card.setImage(new Image(getActivePlayer().getBoard().getOnBoard().get(i).getUrl()));
-            playerOneBoard.getChildren().addAll(card);
-        }
-
-        for (int i = 0; i < getInactivePlayer().getBoard().getOnBoard().size(); i++) {
-            ImageView card = new ImageView(new Image(getInactivePlayer().getBoard().getOnBoard().get(i).getUrl()));
-            card.setFitWidth(115);
-            card.setFitHeight(150);
-            card.setRotate(180);
-            addHoverEvent(card);
-            addHoverOffEvent(card);
-            addDeclarable(card);
-            playerTwoBoard.getChildren().add(card);
-        }
-    }
-
-
-    private void handFill() {
-        for (int i = 0; i < getActivePlayer().getHand().getCardsInHand().size(); i++) {
-            ImageView card = new ImageView();
-            card.setFitWidth(115);
-            card.setFitHeight(150);
-            addHoverEvent(card);
-            addHoverOffEvent(card);
-            addPlayable(card);
-            card.setImage(new Image(getActivePlayer().getHand().getCardsInHand().get(i).getUrl()));
-            playerOneHand.getChildren().addAll(card);
-        }
-
-        for (int i = 0; i < getInactivePlayer().getHand().getCardsInHand().size(); i++) {
-            ImageView card = new ImageView(new Image(getInactivePlayer().getHand().getCardsInHand().get(i).getUrl()));
-            card.setFitWidth(115);
-            card.setFitHeight(150);
-            card.setRotate(180);
-            addHoverEvent(card);
-            addHoverOffEvent(card);
-            addPlayable(card);
-            playerTwoHand.getChildren().add(card);
-        }
-    }
-
-
-    //Helper methods
-    public void printResult() {
-        String winnerName="";
-        for (int k = 0; k < gm.getSelectedCards().size(); k++) {
-            for (Node i : playerOneBoard.getChildren()) {
-                ImageView tmp = (ImageView) i;
-                String url = "";
-                url += tmp.getImage().getUrl().split("/")[tmp.getImage().getUrl().split("/").length - 3] + "/";
-                url += tmp.getImage().getUrl().split("/")[tmp.getImage().getUrl().split("/").length - 2] + "/";
-                url += tmp.getImage().getUrl().split("/")[tmp.getImage().getUrl().split("/").length - 1];
-                if (url.equals(gm.getSelectedCards().get(k).getLink())) {
-                    tmp.setEffect(null);
-                    tmp.setRotate(90);
-                    winnerName=evaluate().getName();
-                    gm.getSelectedCards().remove(getCardByImageView(tmp,gm.getSelectedCards()));
-                    break;
-
-                }
-            }
-        }
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(winnerName + " won the phase!");
-        alert.show();
-        playerTwoDeckSize.setText(Integer.toString(getInactivePlayer().getDeck().getCardList().size()));
-        if (battlesStarted == 2) {
-            drawToFive();
-        }
-    }
-
-
-    private Player evaluate() {
-        int activePlayerStrength = 0;
-        int inactivePlayerStrength = 0;
-        battlesStarted++;
-        if (gm.getPhase().equals("military")) {
-            militaryPhaseButton.setDisable(true);
-            for (Card c : gm.getSelectedCards()) {
-                activePlayerStrength += c.getMilitary();
-                c.setState();
-            }
-            for (Card cr : gm.getEnemySelected()) {
-                inactivePlayerStrength += cr.getMilitary();
-                cr.setState();
-            }
-            if (activePlayerStrength > inactivePlayerStrength) {
-                if (getInactivePlayer().getBoard().getOnBoard().size() > 0) {
-                    Card tmpCard = getInactivePlayer().getBoard().getRandomCard();
-                    getInactivePlayer().getBoard().getOnBoard().remove(tmpCard);
-                    playerTwoBoard.getChildren().remove(getImageViewByCard(tmpCard,playerTwoBoard));
-                }
-                return getActivePlayer();
-            }
-            return getInactivePlayer();
-        } else if (gm.getPhase().equals("intrique")) {
-            intriquePhaseButton.setDisable(true);
-            for (Card c : gm.getSelectedCards()) {
-                activePlayerStrength += c.getIntrique();
-                c.setState();
-            }
-            for (Card cr : gm.getEnemySelected()) {
-                inactivePlayerStrength += cr.getIntrique();
-                cr.setState();
-            }
-            if (activePlayerStrength > inactivePlayerStrength) {
-                for (int i = 0; i < 2; i++) {
-                    if (getInactivePlayer().getHand().getCardsInHand().size() != 0) {
-                        Card tmpCard = getInactivePlayer().getHand().getRandomCard();
-                        playerTwoHand.getChildren().remove(getImageViewByCard(tmpCard, playerTwoHand));
-                        getInactivePlayer().getHand().discard();
-                    }
-                }
-                return getActivePlayer();
-            }
-            return getInactivePlayer();
-        } else if (gm.getPhase().equals("fame")) {
-            famePhaseButton.setDisable(true);
-            for (Card c : gm.getSelectedCards()) {
-                activePlayerStrength += c.getFame();
-                c.setState();
-            }
-            for (Card cr : gm.getEnemySelected()) {
-                inactivePlayerStrength += cr.getFame();
-                cr.setState();
-            }
-            if (activePlayerStrength > inactivePlayerStrength) {
-                for (int i = 0; i < 3; i++) {
-                    if (getInactivePlayer().getDeck().getCardList().size() > 0) {
-                        getInactivePlayer().getDeck().mill();
-                    }
-                }
-                playerTwoDeckSize.setText(Integer.toString(getInactivePlayer().getDeck().getCardList().size()));
-                return getActivePlayer();
-            }
-            return getInactivePlayer();
-        }
-        return null;
-    }
-
-
-
-    private ImageView getImageViewByCard(Card card, FlowPane hand) {
-        for (int i = 0; i < hand.getChildren().size(); i++) {
-            ImageView tmp = (ImageView) hand.getChildren().get(i);
-
-            String[] path = tmp.getImage().getUrl().split("/");
-
-            String url = "";
-            url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
-
-            if (card.getLink().equals(url)) {
-                return tmp;
-            }
-        }
-        return null;
-    }
-
-    private Card getCardByImageView(ImageView img, List<Card> cardList){
-        String[] path = img.getImage().getUrl().split("/");
-        String url = "";
-        url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
-
-        for (int i = 0; i <cardList.size() ; i++) {
-            if(url.equals(cardList.get(i).getLink())){
-                return cardList.get(i);
-            }
-        }
-        return null;
-    }
-
-
-    private Player getActivePlayer() {
-        Player activePlayer = null;
-        for (Player player : gm.getPlayers()) {
-            if (player.isActive()) {
-                activePlayer = player;
-            }
-        }
-        return activePlayer;
-    }
-
-    private Player getInactivePlayer() {
-        Player inactivePlayer = null;
-        for (Player player : gm.getPlayers()) {
-            if (!player.isActive()) {
-                inactivePlayer = player;
-            }
-        }
-        return inactivePlayer;
-    }
-
-    public void setMilitaryPhase() {
-        gm.setPhase("military");
-    }
-
-    public void setIntriquePhase() {
-        gm.setPhase("intrique");
-    }
-
-    public void setFamePhase() {
-        gm.setPhase("fame");
     }
 }
