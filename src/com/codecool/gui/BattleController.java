@@ -118,6 +118,10 @@ public class BattleController {
     private void declareBlockers() {
         defense.setVisible(true);
         defense.setDisable(false);
+        for (Node node : playerOneBoard.getChildren()) {
+            ImageView card = (ImageView) node;
+            card.setDisable(true);
+        }
         for (Node node : playerTwoBoard.getChildren()) {
             ImageView card = (ImageView) node;
             addBlockable(card);
@@ -231,6 +235,7 @@ public class BattleController {
             card.setFitWidth(115);
             card.setFitHeight(150);
             card.setId(inactivePlayer.getBoard().getOnBoard().get(i).getName());
+            System.out.println(inactivePlayer.getBoard().getOnBoard().get(i).getName() + " " + inactivePlayer.getBoard().getOnBoard().get(i).isState());
             if (inactivePlayer.getBoard().getOnBoard().get(i).isState()) {
                 card.setRotate(180);
             } else {
@@ -382,15 +387,16 @@ public class BattleController {
 
 
     public void printResult() {
+        DropShadow sd = new DropShadow();
+        sd.setColor(Color.DARKRED);
+        sd.setSpread(0.4);
+        sd.setHeight(50);
+        sd.setWidth(50);
         for (int k = 0; k < gm.getAttackers().size(); k++) {
             for (Node i : playerOneBoard.getChildren()) {
                 ImageView tmp = (ImageView) i;
                 if (tmp.getId().equals(gm.getAttackers().get(k).getName())) {
-                    tmp.setEffect(null);
-                    tmp.setRotate(90);
-                    gm.getAttackers().remove(getCardByImageView(tmp, gm.getAttackers()));
-                    break;
-
+                    tmp.setEffect(sd);
                 }
             }
         }
@@ -404,8 +410,8 @@ public class BattleController {
         defense.setDisable(true);
         int activePlayerStrength = 0;
         int inactivePlayerStrength = 0;
-        String winnerName = "";
         battlesStarted++;
+
         if (gm.getPhase().equals("military")) {
             militaryPhaseButton.setDisable(true);
             for (Card c : gm.getAttackers()) {
@@ -416,15 +422,17 @@ public class BattleController {
                 inactivePlayerStrength += cr.getMilitary();
                 cr.setState();
             }
+
+            System.out.println(gm.getAttackers().size());
+            System.out.println(activePlayerStrength);
+            System.out.println(inactivePlayerStrength);
             if (activePlayerStrength > inactivePlayerStrength) {
                 if (inactivePlayer.getBoard().getOnBoard().size() > 0) {
                     Card tmpCard = inactivePlayer.getBoard().getRandomCard();
                     inactivePlayer.getBoard().getOnBoard().remove(tmpCard);
                     playerTwoBoard.getChildren().remove(getImageViewByCard(tmpCard, playerTwoBoard));
                 }
-                winnerName = activePlayer.getName();
             }
-            winnerName = inactivePlayer.getName();
         } else if (gm.getPhase().equals("intrique")) {
             intriquePhaseButton.setDisable(true);
             for (Card c : gm.getAttackers()) {
@@ -443,9 +451,7 @@ public class BattleController {
                         inactivePlayer.getHand().discard();
                     }
                 }
-                winnerName = activePlayer.getName();
             }
-            winnerName = inactivePlayer.getName();
         } else if (gm.getPhase().equals("fame")) {
             famePhaseButton.setDisable(true);
             for (Card c : gm.getAttackers()) {
@@ -463,14 +469,31 @@ public class BattleController {
                     }
                 }
                 playerTwoDeckSize.setText(Integer.toString(inactivePlayer.getDeck().getCardList().size()));
-                winnerName = activePlayer.getName();
             }
-            winnerName = inactivePlayer.getName();
         }
+
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(winnerName + " won the phase!");
+        alert.setHeaderText((activePlayerStrength > inactivePlayerStrength ? activePlayer.getName() : inactivePlayer.getName()) + " won the phase!");
         alert.show();
-        playerTwoDeckSize.setText(Integer.toString(inactivePlayer.getDeck().getCardList().size()));
+        gm.getAttackers().clear();
+        gm.getDefenders().clear();
+
+        for (Node node : playerOneBoard.getChildren()) {
+            ImageView card = (ImageView) node;
+            card.setDisable(false);
+            card.setEffect(null);
+            card.setRotate(90);
+            getCardByImageView(card, gm.getAttackers()).setState();
+        }
+        for (Node node : playerTwoBoard.getChildren()) {
+            ImageView card = (ImageView) node;
+            card.setDisable(true);
+            card.setEffect(null);
+            card.setRotate(90);
+            getCardByImageView(card, gm.getDefenders()).setState();
+        }
+
         if (battlesStarted == 2) {
             drawToFive();
         }
