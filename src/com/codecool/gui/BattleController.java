@@ -81,6 +81,12 @@ public class BattleController {
         nameFieldOne.setText(activePlayer.getName());
         nameFieldTwo.setText(inactivePlayer.getName());
 
+        for (Card c : getActivePlayer().getBoard().getOnBoard()) {
+            if (!c.isState()) {
+                c.setState();
+            }
+        }
+
         if (activePlayer.getBoard().getOnBoard().size() > 0 || inactivePlayer.getBoard().getOnBoard().size() > 0) {
             boardWipe();
             boardFill();
@@ -90,11 +96,6 @@ public class BattleController {
 
         playerOneDeckSize.setText(Integer.toString(getActivePlayer().getDeck().getCardList().size()));
         playerTwoDeckSize.setText(Integer.toString(inactivePlayer.getDeck().getCardList().size()));
-        for (Card c : getActivePlayer().getBoard().getOnBoard()) {
-            if (!c.isState()) {
-                c.setState();
-            }
-        }
         recruitPhase();
     }
 
@@ -108,6 +109,7 @@ public class BattleController {
 
 
     private void battlePhase() {
+        gm.setPhase("");
         for (Node node : playerOneBoard.getChildren()) {
             ImageView card = (ImageView) node;
             addDeclarable(card);
@@ -136,20 +138,11 @@ public class BattleController {
         int remainedCards = activePlayer.getHand().getCardsInHand().size();
         boolean deckHasCards = activePlayer.drawAfterTurn();
         if (!deckHasCards) {
-            if (getActivePlayer().getBoard().getOnBoard().size() < 1 && getActivePlayer().getHand().getCardsInHand().size() < 1) {
-                try {
-                    lose();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                Alert noCardAlert = new Alert(Alert.AlertType.INFORMATION);
-                noCardAlert.setHeaderText("There are no cards to draw");
-                noCardAlert.showAndWait();
-                playerOneHand.setDisable(false);
-                changeTurn();
+            try {
+                lose();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
         } else {
             playerOneHand.setDisable(false);
             for (int i = remainedCards + 1; i < 5; i++) {
@@ -163,12 +156,6 @@ public class BattleController {
                 playerOneHand.getChildren().addAll(card);
             }
             playerOneDeckSize.setText(Integer.toString(activePlayer.getDeck().getCardList().size()));
-            for (Card c : activePlayer.getBoard().getOnBoard()) {
-                if (!c.isState()) {
-                    c.setState();
-                    getImageViewByCard(c, playerOneBoard).setRotate(270);
-                }
-            }
             battlesStarted = 0;
             changeTurn();
         }
@@ -235,7 +222,6 @@ public class BattleController {
             card.setFitWidth(115);
             card.setFitHeight(150);
             card.setId(inactivePlayer.getBoard().getOnBoard().get(i).getName());
-            System.out.println(inactivePlayer.getBoard().getOnBoard().get(i).getName() + " " + inactivePlayer.getBoard().getOnBoard().get(i).isState());
             if (inactivePlayer.getBoard().getOnBoard().get(i).isState()) {
                 card.setRotate(180);
             } else {
@@ -243,7 +229,6 @@ public class BattleController {
             }
             addHoverEvent(card);
             addHoverOffEvent(card);
-            addDeclarable(card);
             playerTwoBoard.getChildren().add(card);
         }
     }
@@ -387,6 +372,12 @@ public class BattleController {
 
 
     public void printResult() {
+        if (gm.getPhase().equals("")) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Please select a combat type");
+            alert.showAndWait();
+            return;
+        }
         DropShadow sd = new DropShadow();
         sd.setColor(Color.DARKRED);
         sd.setSpread(0.4);
@@ -423,9 +414,6 @@ public class BattleController {
                 cr.setState();
             }
 
-            System.out.println(gm.getAttackers().size());
-            System.out.println(activePlayerStrength);
-            System.out.println(inactivePlayerStrength);
             if (activePlayerStrength > inactivePlayerStrength) {
                 if (inactivePlayer.getBoard().getOnBoard().size() > 0) {
                     Card tmpCard = inactivePlayer.getBoard().getRandomCard();
@@ -476,23 +464,28 @@ public class BattleController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText((activePlayerStrength > inactivePlayerStrength ? activePlayer.getName() : inactivePlayer.getName()) + " won the phase!");
         alert.show();
-        gm.getAttackers().clear();
-        gm.getDefenders().clear();
 
         for (Node node : playerOneBoard.getChildren()) {
             ImageView card = (ImageView) node;
             card.setDisable(false);
-            card.setEffect(null);
-            card.setRotate(90);
-            getCardByImageView(card, gm.getAttackers()).setState();
+            addDeclarable(card);
+            if (card.getEffect() != null) {
+                card.setEffect(null);
+                card.setRotate(90);
+            }
         }
         for (Node node : playerTwoBoard.getChildren()) {
             ImageView card = (ImageView) node;
             card.setDisable(true);
-            card.setEffect(null);
-            card.setRotate(90);
-            getCardByImageView(card, gm.getDefenders()).setState();
+            if (card.getEffect() != null) {
+                card.setEffect(null);
+                card.setRotate(90);
+            }
         }
+
+        gm.getAttackers().clear();
+        gm.getDefenders().clear();
+        gm.setPhase("");
 
         if (battlesStarted == 2) {
             drawToFive();
@@ -592,7 +585,6 @@ public class BattleController {
         }
         for (int i = 0; i < playerOneBoard.getChildren().size(); i++) {
             if (playerOneBoard.getChildren().get(i).isHover()) {
-
                 tmpImg = (ImageView) playerOneBoard.getChildren().get(i);
                 break;
             }
