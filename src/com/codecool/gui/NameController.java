@@ -61,9 +61,6 @@ public class NameController {
         playerOne.drawStartingHand();
         playerTwo.drawStartingHand();
 
-        gm.setPlayerOne(playerOne);
-        gm.setPlayerTwo(playerTwo);
-
         Parent root = FXMLLoader.load(getClass().getResource("battleScreen.fxml"));
         Stage stage = (Stage) ap.getScene().getWindow();
         stage.setScene(new Scene(root,1280,720));

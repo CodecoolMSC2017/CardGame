@@ -116,7 +116,6 @@ public class BattleController {
 
 
     private void declareBlockers() {
-        defense.setText("Selection done");
         defense.setVisible(true);
         defense.setDisable(false);
         for (Node node : playerTwoBoard.getChildren()) {
@@ -202,8 +201,6 @@ public class BattleController {
     }
 
 
-
-
     //*************************************
     //Board and Hand Wipes and Re-Creations
     //*************************************
@@ -221,6 +218,7 @@ public class BattleController {
             ImageView card = new ImageView();
             card.setFitWidth(115);
             card.setFitHeight(150);
+            card.setId(activePlayer.getBoard().getOnBoard().get(i).getName());
             addHoverEvent(card);
             addHoverOffEvent(card);
             addDeclarable(card);
@@ -232,6 +230,7 @@ public class BattleController {
             ImageView card = new ImageView(new Image(inactivePlayer.getBoard().getOnBoard().get(i).getUrl()));
             card.setFitWidth(115);
             card.setFitHeight(150);
+            card.setId(inactivePlayer.getBoard().getOnBoard().get(i).getName());
             if (inactivePlayer.getBoard().getOnBoard().get(i).isState()) {
                 card.setRotate(180);
             } else {
@@ -253,6 +252,7 @@ public class BattleController {
             addHoverEvent(card);
             addHoverOffEvent(card);
             addPlayable(card);
+            card.setId(activePlayer.getHand().getCardsInHand().get(i).getName());
             card.setImage(new Image(activePlayer.getHand().getCardsInHand().get(i).getUrl()));
             playerOneHand.getChildren().addAll(card);
         }
@@ -265,11 +265,10 @@ public class BattleController {
             addHoverEvent(card);
             addHoverOffEvent(card);
             addPlayable(card);
+            card.setId(inactivePlayer.getHand().getCardsInHand().get(i).getName());
             playerTwoHand.getChildren().add(card);
         }
     }
-
-
 
 
     //**************************
@@ -283,11 +282,8 @@ public class BattleController {
             public void handle(javafx.scene.input.MouseEvent event) {
                 if (!card.getParent().equals(playerOneBoard)) {
                     playerOneBoard.getChildren().add(card);
-                    String[] path = card.getImage().getUrl().split("/");
-                    String url = "";
-                    url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
                     for (int i = 0; i < activePlayer.getHand().getCardsInHand().size(); i++) {
-                        if (activePlayer.getHand().getCardsInHand().get(i).getLink().equals(url)) {
+                        if (activePlayer.getHand().getCardsInHand().get(i).getName().equals(card.getId())) {
                             activePlayer.playFromHand(i);
                         }
                     }
@@ -320,22 +316,16 @@ public class BattleController {
                 sd.setWidth(50);
                 if (card.getEffect() != null) {
                     card.setEffect(null);
-                    String[] path = card.getImage().getUrl().split("/");
-                    String url = "";
-                    url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
                     for (int l = 0; l < activePlayer.getBoard().getOnBoard().size(); l++) {
-                        if (url.equals(activePlayer.getBoard().getOnBoard().get(l).getLink())) {
+                        if (card.getId().equals(activePlayer.getBoard().getOnBoard().get(l).getName())) {
                             gm.removeFromAttackers(activePlayer.getBoard().getOnBoard().get(l));
                             break;
                         }
                     }
                 } else {
                     card.setEffect(sd);
-                    String[] path = card.getImage().getUrl().split("/");
-                    String url = "";
-                    url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
                     for (int l = 0; l < activePlayer.getBoard().getOnBoard().size(); l++) {
-                        if (url.equals(activePlayer.getBoard().getOnBoard().get(l).getLink())) {
+                        if (card.getId().equals(activePlayer.getBoard().getOnBoard().get(l).getName())) {
                             if (activePlayer.getBoard().getOnBoard().get(l).isState()) {
                                 gm.addToAttackers(activePlayer.getBoard().getOnBoard().get(l));
                                 card.setEffect(sd);
@@ -364,22 +354,16 @@ public class BattleController {
                 sd.setWidth(50);
                 if (card.getEffect() != null) {
                     card.setEffect(null);
-                    String[] path = card.getImage().getUrl().split("/");
-                    String url = "";
-                    url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
                     for (int l = 0; l < inactivePlayer.getBoard().getOnBoard().size(); l++) {
-                        if (url.equals(inactivePlayer.getBoard().getOnBoard().get(l).getLink())) {
+                        if (card.getId().equals(inactivePlayer.getBoard().getOnBoard().get(l).getName())) {
                             gm.removeFromDefenders(inactivePlayer.getBoard().getOnBoard().get(l));
                             break;
                         }
                     }
                 } else {
                     card.setEffect(sd);
-                    String[] path = card.getImage().getUrl().split("/");
-                    String url = "";
-                    url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
                     for (int l = 0; l < inactivePlayer.getBoard().getOnBoard().size(); l++) {
-                        if (url.equals(inactivePlayer.getBoard().getOnBoard().get(l).getLink())) {
+                        if (card.getId().equals(inactivePlayer.getBoard().getOnBoard().get(l).getName())) {
                             if (inactivePlayer.getBoard().getOnBoard().get(l).isState()) {
                                 gm.addToDefenders(inactivePlayer.getBoard().getOnBoard().get(l));
                                 card.setEffect(sd);
@@ -398,38 +382,29 @@ public class BattleController {
 
 
     public void printResult() {
-        String winnerName = "";
         for (int k = 0; k < gm.getAttackers().size(); k++) {
             for (Node i : playerOneBoard.getChildren()) {
                 ImageView tmp = (ImageView) i;
-                String url = "";
-                url += tmp.getImage().getUrl().split("/")[tmp.getImage().getUrl().split("/").length - 3] + "/";
-                url += tmp.getImage().getUrl().split("/")[tmp.getImage().getUrl().split("/").length - 2] + "/";
-                url += tmp.getImage().getUrl().split("/")[tmp.getImage().getUrl().split("/").length - 1];
-                if (url.equals(gm.getAttackers().get(k).getLink())) {
+                if (tmp.getId().equals(gm.getAttackers().get(k).getName())) {
                     tmp.setEffect(null);
                     tmp.setRotate(90);
-                    declareBlockers();
                     gm.getAttackers().remove(getCardByImageView(tmp, gm.getAttackers()));
                     break;
 
                 }
             }
         }
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(winnerName + " won the phase!");
-        alert.show();
-        playerTwoDeckSize.setText(Integer.toString(inactivePlayer.getDeck().getCardList().size()));
-        if (battlesStarted == 2) {
-            drawToFive();
-        }
+        declareBlockers();
     }
 
 
     @FXML
-    private Player evaluate() {
+    private void evaluate() {
+        defense.setVisible(false);
+        defense.setDisable(true);
         int activePlayerStrength = 0;
         int inactivePlayerStrength = 0;
+        String winnerName = "";
         battlesStarted++;
         if (gm.getPhase().equals("military")) {
             militaryPhaseButton.setDisable(true);
@@ -447,9 +422,9 @@ public class BattleController {
                     inactivePlayer.getBoard().getOnBoard().remove(tmpCard);
                     playerTwoBoard.getChildren().remove(getImageViewByCard(tmpCard, playerTwoBoard));
                 }
-                return activePlayer;
+                winnerName = activePlayer.getName();
             }
-            return inactivePlayer;
+            winnerName = inactivePlayer.getName();
         } else if (gm.getPhase().equals("intrique")) {
             intriquePhaseButton.setDisable(true);
             for (Card c : gm.getAttackers()) {
@@ -468,9 +443,9 @@ public class BattleController {
                         inactivePlayer.getHand().discard();
                     }
                 }
-                return activePlayer;
+                winnerName = activePlayer.getName();
             }
-            return inactivePlayer;
+            winnerName = inactivePlayer.getName();
         } else if (gm.getPhase().equals("fame")) {
             famePhaseButton.setDisable(true);
             for (Card c : gm.getAttackers()) {
@@ -488,13 +463,18 @@ public class BattleController {
                     }
                 }
                 playerTwoDeckSize.setText(Integer.toString(inactivePlayer.getDeck().getCardList().size()));
-                return activePlayer;
+                winnerName = activePlayer.getName();
             }
-            return inactivePlayer;
+            winnerName = inactivePlayer.getName();
         }
-        return null;
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(winnerName + " won the phase!");
+        alert.show();
+        playerTwoDeckSize.setText(Integer.toString(inactivePlayer.getDeck().getCardList().size()));
+        if (battlesStarted == 2) {
+            drawToFive();
+        }
     }
-
 
 
     //*******************
@@ -504,13 +484,7 @@ public class BattleController {
     private ImageView getImageViewByCard(Card card, FlowPane hand) {
         for (int i = 0; i < hand.getChildren().size(); i++) {
             ImageView tmp = (ImageView) hand.getChildren().get(i);
-
-            String[] path = tmp.getImage().getUrl().split("/");
-
-            String url = "";
-            url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
-
-            if (card.getLink().equals(url)) {
+            if (card.getName().equals(tmp.getId())) {
                 return tmp;
             }
         }
@@ -518,12 +492,8 @@ public class BattleController {
     }
 
     private Card getCardByImageView(ImageView img, List<Card> cardList) {
-        String[] path = img.getImage().getUrl().split("/");
-        String url = "";
-        url += path[path.length - 3] + "/" + path[path.length - 2] + "/" + path[path.length - 1];
-
         for (int i = 0; i < cardList.size(); i++) {
-            if (url.equals(cardList.get(i).getLink())) {
+            if (img.getId().equals(cardList.get(i).getName())) {
                 return cardList.get(i);
             }
         }
@@ -562,7 +532,6 @@ public class BattleController {
     public void setFamePhase() {
         gm.setPhase("fame");
     }
-
 
 
     //************************************************
