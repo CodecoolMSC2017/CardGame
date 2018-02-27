@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
@@ -15,11 +16,11 @@
             <Image url="@../../../images/others/background.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="playerOneName" layoutX="516.0" layoutY="246.0" promptText="Enter your name">
+      <TextField fx:id="playerOneName" layoutX="384.0" layoutY="248.0" promptText="Enter your name">
          <font>
             <Font size="18.0" />
          </font></TextField>
-      <TextField fx:id="playerTwoName" layoutX="516.0" layoutY="394.0" promptText="Enter your name">
+      <TextField fx:id="playerTwoName" layoutX="384.0" layoutY="395.0" promptText="Enter your name">
          <font>
             <Font size="18.0" />
          </font></TextField>
@@ -43,5 +44,7 @@
             <Image url="@../../../images/others/confirmButton.jpg" />
          </image>
       </ImageView>
+      <ChoiceBox fx:id="playerOneDeck" layoutX="718.0" layoutY="252.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="playerTwoDeck" layoutX="718.0" layoutY="399.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

@@ -26,8 +26,8 @@ public class Game implements Serializable{
         players.add(player1);
         players.add(player2);
 
-        cr.loadDeck(player1);
-        cr.loadDeck(player2);
+        cr.loadDeck(player1, "src/Cards.xml");
+        cr.loadDeck(player2, "src/Cards.xml");
 
         if (random.nextBoolean()) {
             player1.setActive();

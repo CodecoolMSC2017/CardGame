@@ -13,9 +13,9 @@ import java.io.File;
 
 public class CardReader {
 
-    public void loadDeck(Player player) {
+    public void loadDeck(Player player, String path) {
         try {
-            File xmlFile = new File("src/Cards.xml");
+            File xmlFile = new File(path);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document document = dBuilder.parse(xmlFile);
